@@ -8,14 +8,14 @@ var session = require('express-session'); //my add
 var MongoStore = require('connect-mongo')(session); //my add
 var flash = require('connect-flash'); //my add
 var winston = require('winston'); //my add
+require("babel-core/register") //使用es6语法
 var expressWinston = require('express-winston'); //my add
 var routes = require('./routes'); //my add
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var pkg = require('./package');
-// var config = require('config-lite')(__dirname);
-var config = require('./config/default');
+var config = require('./config');
 var app = express();
 
 // view engine setup
@@ -23,7 +23,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -33,8 +33,6 @@ app.use(cookieParser());
 // 设置静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-// ============self add start
 // session 中间件
 app.use(session({
     name: config.session.key, // 设置 cookie 中保存 session id 的字段名称
@@ -83,7 +81,6 @@ app.use(expressWinston.logger({
         })
     ]
 }));
-// ============self add end
 
 // 路由
 routes(app);
