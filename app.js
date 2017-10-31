@@ -1,3 +1,4 @@
+require("babel-core/register") //使用es6语法
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -6,9 +7,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session'); //my add
 var MongoStore = require('connect-mongo')(session); //my add
+// flash 是一个在 session 中用于存储信息的特定区域。
+// 信息写入 flash ，下一次显示完毕后即被清除。典型的应用是结合重定向的功能，确保信息是提供给下一个被渲染的页面。
 var flash = require('connect-flash'); //my add
 var winston = require('winston'); //my add
-require("babel-core/register") //使用es6语法
 var expressWinston = require('express-winston'); //my add
 var routes = require('./routes'); //my add
 
@@ -20,13 +22,13 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+app.use(logger('dev')); // 加载日志中间件。
+app.use(bodyParser.json()); // 加载解析json的中间件。
+app.use(bodyParser.urlencoded({ // 加载解析urlencoded请求体的中间件。
     extended: false
 }));
 app.use(cookieParser());
@@ -70,17 +72,17 @@ app.use(function (req, res, next) {
 });
 
 // 正常请求的日志
-app.use(expressWinston.logger({
-    transports: [
-        new(winston.transports.Console)({
-            json: true,
-            colorize: true
-        }),
-        new winston.transports.File({
-            filename: 'logs/success.log'
-        })
-    ]
-}));
+// app.use(expressWinston.logger({
+//     transports: [
+//         new(winston.transports.Console)({
+//             json: true,
+//             colorize: true
+//         }),
+//         new winston.transports.File({
+//             filename: 'logs/success.log'
+//         })
+//     ]
+// }));
 
 // 路由
 routes(app);
