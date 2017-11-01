@@ -2,3 +2,4 @@ config/*
 !config/default.*
 npm-debug.log
 node_modules
+logs

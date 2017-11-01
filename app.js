@@ -5,14 +5,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var session = require('express-session'); //my add
-var MongoStore = require('connect-mongo')(session); //my add
+
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 // flash 是一个在 session 中用于存储信息的特定区域。
 // 信息写入 flash ，下一次显示完毕后即被清除。典型的应用是结合重定向的功能，确保信息是提供给下一个被渲染的页面。
-var flash = require('connect-flash'); //my add
-var winston = require('winston'); //my add
-var expressWinston = require('express-winston'); //my add
-var routes = require('./routes'); //my add
+var flash = require('connect-flash');
+var winston = require('winston');
+var expressWinston = require('express-winston');
+var routes = require('./routes');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -20,17 +21,14 @@ var pkg = require('./package');
 var config = require('./config');
 var app = express();
 
-// view engine setup
+// 视图引擎设置
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev')); // 加载日志中间件。
 app.use(bodyParser.json()); // 加载解析json的中间件。
-app.use(bodyParser.urlencoded({ // 加载解析urlencoded请求体的中间件。
-    extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: false })); // 加载解析urlencoded请求体的中间件。
 app.use(cookieParser());
 // 设置静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));
@@ -52,10 +50,10 @@ app.use(session({
 app.use(flash());
 
 // 处理表单及文件上传的中间件
-app.use(require('express-formidable')({
-    uploadDir: path.join(__dirname, 'public/image'), // 上传文件目录
-    keepExtensions: true // 保留后缀
-}));
+// app.use(require('express-formidable')({
+//     uploadDir: path.join(__dirname, 'public/image'), // 上传文件目录
+//     keepExtensions: true // 保留后缀
+// }));
 
 // 设置模板全局常量
 app.locals.blog = {
@@ -71,7 +69,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-// 正常请求的日志
+// 正常请求的日志，暂不开启
 // app.use(expressWinston.logger({
 //     transports: [
 //         new(winston.transports.Console)({
@@ -100,15 +98,15 @@ app.use(expressWinston.errorLogger({
     ]
 }));
 
-// error handler
+// error page
 app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
+    // render the error page
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.render('error', {
+        error: err
+    });
 });
 
 module.exports = app;

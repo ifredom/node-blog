@@ -1,7 +1,9 @@
-<%- include('header') %>
+<%- include('components/header') %>
 
     <form class="loginContent" method="post">
-        <h1 class="title"><%- title %></h1>
+        <h1 class="title">
+            <%- title %>
+        </h1>
         <input type="text" id="username" placeholder="用户名">
         <input type="password" id="pwd" placeholder="密码">
         <input id="login" type="submit" value="登陆">
@@ -11,27 +13,30 @@
         </div>
     </form>
     <script type="text/javascript">
-        var login = document.getElementById('login')
-        var params = {
-            name: 'ifredom',
-            password:'111111'
-        }
-        // login.addEventListener('click', function (e) {
-        //     axios({
-        //         method: 'post',
-        //         url: 'http://localhost:3000/login',
-        //         timeout: 10000,
-        //         data: params,
-        //         headers: {
-        //             'Content-Type': 'text/html; charset=UTF-8'
-        //         }
-        //     }).then(response => {
-        //         console.log(response.data)
-        //     }, err => {
-        //         console.log(err)
-        //     }).catch(thrown => {
-        //         console.log(thrown)
-        //     })
-        // }, false)
+
+        
+        login.addEventListener('click', function (e) {
+            var name = document.querySelector('#username').value
+            var pwd = document.querySelector('#pwd').value
+            var params = {
+                name: name,
+                password: pwd
+            }
+            $.ajax({
+                url: '/login',
+                type: 'POST',
+                data: params,
+                success: function (data, status) {
+                    if (status == 'success') {
+                        alert("good")
+                    }
+                },
+                error: function (data, status) {
+                    if (status == "error") {
+                        console.log("login")
+                    }
+                }
+            });
+        }, false)
     </script>
-    <%- include('footer') %>
+    <%- include('components/footer') %>
