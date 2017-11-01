@@ -1,4 +1,7 @@
 require("babel-core/register") //使用es6语法
+    // 安装服务
+    // mongod--install--serviceName MongoDB--serviceDisplayName MongoDB--logpath C: \mongodb\ data\ log\ mongod.Log--dbpath C: \mongodb\ data\ db--directoryperdb
+    // 启动mongodb服务 mongod --dbpath C:\mongodb\data\db
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -62,7 +65,7 @@ app.locals.blog = {
 };
 
 // 添加模板必需的三个变量
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     // res.locals.user = req.session.user;
     res.locals.success = req.flash('success').toString();
     res.locals.error = req.flash('error').toString();
@@ -99,7 +102,7 @@ app.use(expressWinston.errorLogger({
 }));
 
 // error page
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
     // render the error page
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
