@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET /posts. */
+/* GET /home. */
 router.get('/', function(req, res, next) {
     var author = req.query.author;
     console.log(req.query)
-    res.render('posts', {
+    res.render('home', {
         title: 'posts'
     });
 });

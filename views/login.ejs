@@ -1,42 +1,45 @@
 <%- include('components/header') %>
 
-    <form class="loginContent" method="post">
+    <form class="loginContent" method="post" action="/login">
         <h1 class="title">
             <%- title %>
         </h1>
-        <input type="text" id="username" placeholder="用户名">
-        <input type="password" id="pwd" placeholder="密码">
+        <h2 class="title">
+          <%- flash %>
+        </h2>
+        <input type="text" id="username" name="name" placeholder="用户名" value="ifredom">
+        <input type="password" id="pwd" name="password" placeholder="密码" value="111111">
         <input id="login" type="submit" value="登陆">
-        <div class="othersignin">
-            <div class="regeister">注册</div>
-            <div class="forgertpwd">忘记密码</div>
+        <div class="othersignin clearfix">
+            <a class="regeister" href="#/register">注册</a>
+            <a class="forgert">忘记密码</a>
         </div>
     </form>
     <script type="text/javascript">
 
         
-        login.addEventListener('click', function (e) {
-            var name = document.querySelector('#username').value
-            var pwd = document.querySelector('#pwd').value
-            var params = {
-                name: name,
-                password: pwd
-            }
-            $.ajax({
-                url: '/login',
-                type: 'POST',
-                data: params,
-                success: function (data, status) {
-                    if (status == 'success') {
-                        alert("good")
-                    }
-                },
-                error: function (data, status) {
-                    if (status == "error") {
-                        console.log("login")
-                    }
-                }
-            });
-        }, false)
+        // login.addEventListener('click', function (e) {
+        //     var name = document.querySelector('#username').value
+        //     var pwd = document.querySelector('#pwd').value
+        //     var params = {
+        //         name: name,
+        //         password: pwd
+        //     }
+        //     $.ajax({
+        //         url: '/login',
+        //         type: 'POST',
+        //         data: params,
+        //         success: function (data, status) {
+        //             if (status == 'success') {
+        //                 alert("good")
+        //             }
+        //         },
+        //         error: function (data, status) {
+        //             if (status == "error") {
+        //                 console.log("login")
+        //             }
+        //         }
+        //     });
+        // }, false)
     </script>
     <%- include('components/footer') %>

@@ -2,6 +2,7 @@ require("babel-core/register") //使用es6语法
     // 安装服务
     // mongod--install--serviceName MongoDB--serviceDisplayName MongoDB--logpath C: \mongodb\ data\ log\ mongod.Log--dbpath C: \mongodb\ data\ db--directoryperdb
     // 启动mongodb服务 mongod --dbpath C:\mongodb\data\db
+require('./mongodb/mongodb.js');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -18,8 +19,6 @@ var winston = require('winston');
 var expressWinston = require('express-winston');
 var routes = require('./routes');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
 var pkg = require('./package');
 var config = require('./config');
 var app = express();

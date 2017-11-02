@@ -36,3 +36,16 @@
     border-top-width:0; 
     border-bottom-right-radius: 8px;
 }
+.loginContent .othersignin{
+  margin-top: 20px;
+}
+.loginContent .regeister{
+  display: inline-block;
+  float: left;
+  width: 50%;
+}
+.loginContent .forgert {
+  display: inline-block;
+  float: left;
+  width: 50%;
+}
