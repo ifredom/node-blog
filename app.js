@@ -1,7 +1,7 @@
 require("babel-core/register") //使用es6语法
-// 安装服务
-// mongod--install--serviceName MongoDB--serviceDisplayName MongoDB--logpath C: \mongodb\ data\ log\ mongod.Log--dbpath C: \mongodb\ data\ db--directoryperdb
-// 启动mongodb服务 mongod --dbpath C:\mongodb\data\db
+    // 安装服务
+    // mongod--install--serviceName MongoDB--serviceDisplayName MongoDB--logpath C: \mongodb\ data\ log\ mongod.Log--dbpath C: \mongodb\ data\ db--directoryperdb
+    // 启动mongodb服务 mongod --dbpath C:\mongodb\data\db
 require('./mongodb/mongodb.js');
 
 var express = require('express');
@@ -32,6 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false })); // 加载解析urlencoded�
 app.use(cookieParser());
 // 设置静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));
+// app.use('/dist', express.static(resolve('./dist'))) // vue单页设置
 
 // session 中间件
 app.use(session({

@@ -19,6 +19,7 @@ router.post('/', function(req, res) {
         }
         // saved success!
         res.redirect('login');
+        // res.send();
     })
 })
 
