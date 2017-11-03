@@ -12,7 +12,7 @@ router.post('/', function(req, res) {
     var name = req.body.name
     var password = req.body.password
 
-    var admin = new adminModel({ name: 'ifredom', password: '111111' })
+    var admin = new adminModel({ name: name, password: password })
     admin.save(function(err) {
         if (err) {
             console.log(err)
