@@ -1,24 +1,22 @@
 require("babel-core/register") //使用es6语法
-    // 安装服务
-    // mongod--install--serviceName MongoDB--serviceDisplayName MongoDB--logpath C: \mongodb\ data\ log\ mongod.Log--dbpath C: \mongodb\ data\ db--directoryperdb
-    // 启动mongodb服务 mongod --dbpath C:\mongodb\data\db
+// 安装服务
+// mongod--install--serviceName MongoDB--serviceDisplayName MongoDB--logpath C: \mongodb\ data\ log\ mongod.Log--dbpath C: \mongodb\ data\ db--directoryperdb
+// 启动mongodb服务 mongod --dbpath C:\mongodb\data\db
 require('./mongodb/mongodb.js');
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
 
+var bodyParser = require('body-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-// flash 是一个在 session 中用于存储信息的特定区域。
-// 信息写入 flash ，下一次显示完毕后即被清除。典型的应用是结合重定向的功能，确保信息是提供给下一个被渲染的页面。
-var flash = require('connect-flash');
 var winston = require('winston');
 var expressWinston = require('express-winston');
-var routes = require('./routes');
 
+var routes = require('./routes');
 var pkg = require('./package');
 var config = require('./config');
 var app = express();
@@ -48,8 +46,7 @@ app.use(session({
         url: config.mongodb // mongodb 地址
     })
 }));
-// flash 中间件，用来显示通知
-app.use(flash());
+
 
 // 处理表单及文件上传的中间件
 // app.use(require('express-formidable')({
@@ -63,13 +60,7 @@ app.locals.blog = {
     description: pkg.description
 };
 
-// 添加模板必需的三个变量
-app.use(function(req, res, next) {
-    // res.locals.user = req.session.user;
-    res.locals.success = req.flash('success').toString();
-    res.locals.error = req.flash('error').toString();
-    next();
-});
+
 
 // 正常请求的日志，暂不开启
 // app.use(expressWinston.logger({

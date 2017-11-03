@@ -7,8 +7,7 @@ var adminModel = require('../models/admin/admin.js')
 /* GET /login. */
 router.get('/', (req, res, next) => {
   res.render('login', {
-    title: 'Express-Node-ifredom-Blog',
-    flash: req.flash('info') 
+    title: 'Express-Node-ifredom-Blog'
   })
   res.end();
 });
@@ -19,20 +18,20 @@ router.post('/', function (req, res, next) {
   var name = req.body.name;
   var password = req.body.password;
 
-  adminModel.findOne({ name: name, password: password }).exec().then(function(user){
+  adminModel.findOne({
+    name: name,
+    password: password
+  }).exec().then(function (user) {
     if (!user) {
-      req.flash('error', '用户不存在');
       console.log('用户不存在')
       return res.redirect('back');
     }
     // 检查密码是否匹配
     if (password !== user.password) {
-      req.flash('error', '用户名或密码错误');
       console.log('用户名或密码错误')
       return res.redirect('back');
     }
 
-    req.flash('success', '登录成功');
     // 用户信息写入 session
     delete user.password;
     req.session.user = user;

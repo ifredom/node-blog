@@ -1,17 +1,14 @@
-<%- include('components/header') %>
+<%- include('components/layout-start') %>
 
     <form class="loginContent" method="post" action="/login">
         <h1 class="title">
             <%- title %>
         </h1>
-        <h2 class="title">
-          <%- flash %>
-        </h2>
         <input type="text" id="username" name="name" placeholder="用户名" value="ifredom">
         <input type="password" id="pwd" name="password" placeholder="密码" value="111111">
         <input id="login" type="submit" value="登陆">
         <div class="othersignin clearfix">
-            <a class="regeister" href="#/register">注册</a>
+            <a class="regeister" href="/register">注册</a>
             <a class="forgert">忘记密码</a>
         </div>
     </form>
@@ -42,4 +39,5 @@
         //     });
         // }, false)
     </script>
-    <%- include('components/footer') %>
+
+    <%- include('components/layout-end') %>
