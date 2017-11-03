@@ -2,7 +2,7 @@
     learning and use node make a self-blog.
 ## How to use
 ```
-    npm run install
+    npm install
     npm run dev
 ```
 ## About
