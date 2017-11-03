@@ -4,8 +4,10 @@ var adminModel = require('../models/admin/admin.js')
 
 /* GET /register. */
 router.get('/', function(req, res, next) {
-    res.render('register');
-});
+    res.render('register', {
+        title: 'ifredom-Blog 注册'
+    })
+})
 
 /* POST /register. */
 router.post('/', function(req, res) {
@@ -18,8 +20,8 @@ router.post('/', function(req, res) {
             console.log(err)
         }
         // saved success!
-        res.redirect('login');
-        // res.send();
+        // res.redirect('login');
+        res.status(200).send('succeed in saving register.')
     })
 })
 

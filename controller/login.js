@@ -7,7 +7,7 @@ var adminModel = require('../models/admin/admin.js')
     /* GET /login. */
 router.get('/', (req, res, next) => {
     res.render('login', {
-        title: 'Express-Node-ifredom-Blog'
+        title: 'ifredom-Blog 登陆'
     })
     res.end();
 });

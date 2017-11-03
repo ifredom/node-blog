@@ -23,7 +23,10 @@ var app = express();
 
 // 视图引擎设置
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
+
+app.set('view engine', 'html');
+app.engine('.html', require('ejs').__express);
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev')); // 加载日志中间件。
@@ -32,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false })); // 加载解析urlencoded�
 app.use(cookieParser());
 // 设置静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));
+
 // app.use('/dist', express.static(resolve('./dist'))) // vue单页设置
 
 // session 中间件
@@ -62,20 +66,20 @@ app.locals.blog = {
 };
 
 
-
-// 正常请求的日志，暂不开启
-// app.use(expressWinston.logger({
-//     transports: [
-//         new(winston.transports.Console)({
-//             json: true,
-//             colorize: true
-//         }),
-//         new winston.transports.File({
-//             filename: 'logs/success.log'
-//         })
-//     ]
-// }));
-
+// 正常请求的日志
+if (app.get('env') !== 'development') {
+    app.use(expressWinston.logger({
+        transports: [
+            new(winston.transports.Console)({
+                json: true,
+                colorize: true
+            }),
+            new winston.transports.File({
+                filename: 'logs/success.log'
+            })
+        ]
+    }));
+}
 // 路由
 routes(app);
 
@@ -91,6 +95,15 @@ app.use(expressWinston.errorLogger({
         })
     ]
 }));
+
+// 404 page
+app.use(function(req, res) {
+    const err = new Error('Not Found');
+    res.status(404).render('404', {
+        message: err.message,
+        error: err
+    });
+});
 
 // error page
 app.use(function(err, req, res, next) {
