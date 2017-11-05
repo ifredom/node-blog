@@ -3,9 +3,9 @@ module.exports = function(app) {
         res.redirect('/login');
     });
 
+    app.use('/home', require('../controller/home')); // 主页
     app.use('/login', require('../controller/login')); // 登陆
     app.use('/register', require('../controller/register')); // 注册
-    app.use('/home', require('../controller/home')); // 主页
 
 
 };

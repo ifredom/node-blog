@@ -6,6 +6,6 @@ module.exports = {
         maxAge: '2592000000',
 
     },
-    theme: 'default',
-    mongodb: 'mongodb://localhost:27017/ifredomblog'
+    mongodb: 'mongodb://localhost:27017/ifredomblog',
+    theme: 'default'
 }

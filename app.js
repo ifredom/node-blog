@@ -23,10 +23,9 @@ var app = express();
 
 // 视图引擎设置
 app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
-
-app.set('view engine', 'html');
-app.engine('.html', require('ejs').__express);
+app.set('view engine', 'pug');
+// app.set('view engine', 'html');
+// app.engine('.html', require('ejs').__express);
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev')); // 加载日志中间件。
@@ -106,14 +105,14 @@ app.use(function(req, res) {
 });
 
 // error page
-app.use(function(err, req, res, next) {
-    // render the error page
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-    res.status(err.status || 500);
-    res.render('error', {
-        error: err
-    });
-});
+// app.use(function(err, req, res, next) {
+//     // render the error page
+//     res.locals.message = err.message;
+//     res.locals.error = req.app.get('env') === 'development' ? err : {};
+//     res.status(err.status || 500);
+//     res.render('error', {
+//         error: err
+//     });
+// });
 
 module.exports = app;

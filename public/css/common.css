@@ -358,11 +358,3 @@ template {
 [hidden] {
     display: none
 }
-
-.clearfix:after {
-    content: "\20";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}

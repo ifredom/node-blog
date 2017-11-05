@@ -1,0 +1,21 @@
+
+extends components/layout.pug
+
+block content
+  include components/header.pug
+  .container
+    .row
+      each item in movies
+        .col-md-2
+          .thumbnail
+            - href = '/movie/'+item._id
+            a(href=href)
+              - imgUrl = item.poster
+              img(src=imgUrl,alt=href) 
+            .caption
+              h3 #{item.title}
+              p
+                p= item._id
+                - url = '/home/'+item._id
+                a.btn.btn-primary(href=url,role="button") 观看影片
+                

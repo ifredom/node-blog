@@ -1,0 +1,11 @@
+extends components/layout.pug
+
+block content
+  form(class="loginContent", method="post")
+    h1 #{title}
+    input(type="text", id="username", name="name", placeholder="用户名", value="ifredom")
+    input(type="password", id="pwd", name="password", placeholder="密码", value="111111")
+    input(id="register", type="submit", value="登陆")
+    .othersignin.clearfix
+      a.regeister(href="/register") 注册
+      a.forgert 忘记密码
