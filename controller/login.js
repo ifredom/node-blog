@@ -17,7 +17,7 @@ router.post('/', function(req, res, next) {
     var form = new formidable.IncomingForm();
     var name = req.body.name;
     var password = req.body.password;
-
+    password = sha1(password);
     adminModel.findOne({
         name: name,
         password: password
@@ -36,8 +36,7 @@ router.post('/', function(req, res, next) {
         delete user.password;
         req.session.user = user;
         // 跳转到主页
-        res.redirect('/home');
+        res.redirect('/blog');
     })
-
 });
 module.exports = router;

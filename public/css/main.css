@@ -1,71 +1,121 @@
 /* custom */
 
 .clearfix:after {
-    content: "\20";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
+  content: "\20";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
 }
 
 
 /* login page */
 
 .loginContent {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -75%);
-    padding-top: 40px;
-    width: 360px;
-    text-align: center
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -75%);
+  padding-top: 40px;
+  width: 360px;
+  text-align: center
 }
 
 .loginContent .title {
-    font-size: 36px;
-    color: #41c059;
+  font-size: 36px;
+  color: #41c059;
 }
 
 .loginContent input {
-    padding: 8px;
-    width: 100%;
-    height: 40px;
-    border: 1px solid #bebebe;
+  padding: 8px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #bebebe;
 }
 
 .loginContent #login {
-    margin-top: 20px;
-    width: 100%;
-    height: 45px;
-    color: #fff;
-    background-color: #41be56;
-    border-radius: 8px;
+  margin-top: 20px;
+  width: 100%;
+  height: 45px;
+  color: #fff;
+  background-color: #41be56;
+  border-radius: 8px;
 }
 
 .loginContent #username {
-    margin-top: 40px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+  margin-top: 40px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .loginContent #pwd {
-    border-bottom-left-radius: 8px;
-    border-top-width: 0;
-    border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-width: 0;
+  border-bottom-right-radius: 8px;
 }
 
 .loginContent .othersignin {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .loginContent .regeister {
-    display: inline-block;
-    float: left;
-    width: 50%;
+  display: inline-block;
+  float: left;
+  width: 50%;
 }
 
 .loginContent .forgert {
-    display: inline-block;
-    float: left;
-    width: 50%;
+  display: inline-block;
+  float: left;
+  width: 50%;
+}
+
+
+/* blog page */
+
+.page.blog {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.blog .web-nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  background-color: #ccc;
+}
+
+.blog #logo {
+  position: relative;
+  padding-top: 50%;
+  height: 30%;
+}
+
+.blog #logo .advator {
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.blog #logo .advator img {
+  width: 100%;
+  height: 100%;
+}
+
+.blog .nav-tabs {
+  float: right;
+  padding-right: 40px;
+  font-size: 1.2em;
+}
+
+.blog .tab {
+  height: 35px;
+  line-height: 35px;
+  font-family: 'bgBold', arial, helvetica, sans-serif;
 }

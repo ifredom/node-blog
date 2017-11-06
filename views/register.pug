@@ -1,7 +1,7 @@
 extends components/layout.pug
 
 block content
-  form(class="loginContent", method="post")
+  form(class="loginContent", method="post" action="/register")
     h1 注册页面
     input(type="text", id="username", name="name", placeholder="用户名", value="ifredom")
     input(type="password", id="pwd", name="password", placeholder="密码", value="")

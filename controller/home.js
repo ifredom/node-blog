@@ -41,7 +41,7 @@ var detailMovie = {
     }
     /* GET /detaile页面. */
 router.get('/:id', function(req, res, next) {
-    res.render('detail', detailMovie);
+  res.render('detail', detailMovie);
 });
 
 module.exports = router;
