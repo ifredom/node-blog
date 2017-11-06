@@ -4,23 +4,22 @@ block content
   .container
     .row
       .col-md-7
-        - flashUrl = movie.flash
+        - flashUrl = flash
         embed(src=flashUrl,allowFullScreen="true",quality="higt",width="720",height="600",align="middle",type="video/mp4")
       .col-md-5
         dl.dl-horizontal
-          - imgUrl = movie.poster
-          
+          - imgUrl = flash
           img(src=imgUrl,width="200",height="160")
           </br>
           dt 电影名字
-          dd #{movie.title}
+          dd #{title}
           dt 导演
-          dd #{movie.doctor}
+          dd #{doctor}
           dt 国家
-          dd #{movie.country}
+          dd #{country}
           dt 语言
-          dd #{movie.language}
+          dd #{language}
           dt 上映年份
-          dd #{movie.year}
+          dd #{year}
           dt 简介
-          dd #{movie.summary}
+          dd #{summary}

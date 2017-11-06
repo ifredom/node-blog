@@ -3,19 +3,25 @@ extends components/layout
 
 block content
   include components/header
+
+  - href = '/movie/'+item._id
+  - imgUrl = item.flash
+  - url = '/home/'+item._id
+
   .container
     .row
       each item in movies
         .col-md-2
-          .thumbnail
-            - href = '/movie/'+item._id
-            a(href=href)
-              - imgUrl = item.poster
+          .thumbnail= href
+            a(href=href)= item.title
               img(src=imgUrl,alt=href) 
             .caption
               h3 #{item.title}
               p
                 p= item._id
-                - url = '/home/'+item._id
                 a.btn.btn-primary(href=url,role="button") 观看影片
+    .row
+      a(href="/addmovie") 添加影片
+      
+        
                 

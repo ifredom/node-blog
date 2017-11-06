@@ -1,0 +1,42 @@
+extends components/layout
+
+block content
+  - doctor = doctor
+  - title = title
+  - country = country
+  - year = year
+  - language = language
+  - summary = summary
+  - flash = flash
+  .container
+    .row(style="margin-top:30px;")
+      form(action="/addmovie" method="post")
+        form-group
+          label(class="col-sm-2",for="exampleInputEmail1") 导演
+          .col-sm-10
+            input(class="form-control",type="text",name="doctor",placeholder="doctor", value=doctor)
+        form-group
+          label(class="col-sm-2") 国家
+          .col-sm-10
+            input(class="form-control",type="text",name="country",placeholder="country", value=country)
+        form-group
+          label(class="col-sm-2") 电影名称
+          .col-sm-10
+            input(class="form-control",type="text",name="title",placeholder="movie name", value=doctor)
+        form-group
+          label(class="col-sm-2") 年份
+          .col-sm-10
+            input(class="form-control",type="number",name="year",placeholder="year", value=year)
+        form-group
+          label(class="col-sm-2") 语言
+          .col-sm-10
+            input(class="form-control",type="text",name="language",placeholder="language", value=language)
+        form-group
+          label(class="col-sm-2") 电影内容简介
+          .col-sm-10
+            input(class="form-control",type="text",name="summary",placeholder="summary", value=summary)
+        form-group
+          label(class="col-sm-2") 视频地址
+          .col-sm-10
+            input(class="form-control",type="text",name="flash",placeholder="flash" value=flash)
+        button(type="submit" class="btn btn-default") 添加

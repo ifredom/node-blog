@@ -1,16 +1,46 @@
-'user strict';
-
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var moviesShema = new Schema({
-    tile: String,
+    title: String,
     doctor: String,
     country: String,
-    year: String
+    year: Number,
+    language: String,
+    summary: String,
+    flash: String,
+    meta: {
+        createAt: {
+            type: Date,
+            default: Date.now()
+        },
+        updateAt: {
+            type: Date,
+            default: Date.now()
+        }
+    }
 })
-
-moviesShema.index({ id: 1 })
+moviesShema.pre('save', function(next) {
+    if (this.isNew) {
+        this.meta.createAt = this.meta.updateAt = Date.now()
+    } else {
+        this.meta.updateAt = Date.now();
+    }
+    next()
+});
+// moviesShema.statics = {
+//     fetch: function(cb) {
+//         return this
+//             .find({})
+//             .sort('meta.updateAt')
+//         exec(cb)
+//     },
+//     findOne: function(id, cb) {
+//         return this
+//             .findOne({ _id: id })
+//         exec(cb)
+//     }
+// }
 var movies = mongoose.model('movies', moviesShema)
 
 module.exports = movies
