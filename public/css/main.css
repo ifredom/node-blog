@@ -1,5 +1,11 @@
 /* custom */
 
+body,
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
 .clearfix:after {
   content: "\20";
   display: block;
@@ -77,28 +83,36 @@
   position: relative;
   width: 100%;
   height: 100%;
+  background: url("/image/html_bg_paper.jpg") #e8dfd6;
+}
+
+.blog .row.wrapper {
+  height: 100%;
 }
 
 .blog .web-nav {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 20%;
   height: 100%;
-  background-color: #ccc;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.blog .web-content {
+  height: 100%;
 }
 
 .blog #logo {
   position: relative;
-  padding-top: 50%;
-  height: 30%;
+  height: 200px;
+  background: url("/image/logo_bg.jpg") no-repeat 0 0;
+  background-size: 100%;
 }
 
 .blog #logo .advator {
-  margin: 0 auto;
-  width: 100px;
-  height: 100px;
-  transform: translateY(-50%);
+  position: absolute;
+  right: 5px;
+  bottom: 30px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -111,11 +125,42 @@
 .blog .nav-tabs {
   float: right;
   padding-right: 40px;
-  font-size: 1.2em;
+  font-size: 1.6em;
 }
 
 .blog .tab {
   height: 35px;
   line-height: 35px;
   font-family: 'bgBold', arial, helvetica, sans-serif;
+}
+
+.blog .web-content .infos {
+  height: 100%;
+}
+
+.blog .web-content .article-list {
+  min-height: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-shadow: 5px 0 5px -5px black, -5px 0 5px -5px black;
+}
+
+.blog .article-img img {
+  width: 100%;
+}
+
+.blog .web-content .article-item {
+  margin-top: 15px;
+  max-height: 200px;
+  overflow: hidden
+}
+
+.blog .web-content .book {
+  margin: 0 auto;
+  padding: 0 15px;
+  height: 200px;
+}
+
+.blog .web-content .book img {
+  width: 100%;
 }

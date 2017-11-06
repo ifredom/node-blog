@@ -1,20 +1,10 @@
 extends components/layout
 
 block content
-  .page.blog
-      nav.web-nav
-        #logo
-          .advator
-            img(src="image/logo.jpg", alt="")
-        .nav-tabs
-          .tab
-            a(href="/home") home
-          .tab
-            a(href="") work
-          .tab
-            a(href="") about
-          .tab
-            a(href="") blog
-          .tab
-            a(href="") home
-        .section.web-content
+  .container.page.blog
+    .row
+        nav.col-xs-6.col-md-2.web-nav
+          include page/blog/nav
+        .col-xs-12.col-md-10.web-content
+          include page/blog/content
+
