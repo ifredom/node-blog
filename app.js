@@ -21,6 +21,7 @@ var pkg = require('./package');
 var config = require('./config');
 var app = express();
 
+
 // 视图引擎设置
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
