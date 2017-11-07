@@ -25,7 +25,7 @@ router.post('/', (req, res, next) => {
         if (err) {
             console.log(err)
         }
-        res.status('success').redirect('home')
+        res.status('success').redirect('movie')
     })
 });
 

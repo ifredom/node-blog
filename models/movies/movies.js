@@ -28,19 +28,19 @@ moviesShema.pre('save', function(next) {
     }
     next()
 });
-// moviesShema.statics = {
-//     fetch: function(cb) {
-//         return this
-//             .find({})
-//             .sort('meta.updateAt')
-//         exec(cb)
-//     },
-//     findOne: function(id, cb) {
-//         return this
-//             .findOne({ _id: id })
-//         exec(cb)
-//     }
-// }
+moviesShema.statics = {
+    fetch: function(cb) {
+        return this
+            .find({})
+            .sort('meta.updateAt')
+        exec(cb)
+    },
+    findOne: function(id, cb) {
+        return this
+            .findOne({ _id: id })
+        exec(cb)
+    }
+}
 var movies = mongoose.model('movies', moviesShema)
 
 module.exports = movies
