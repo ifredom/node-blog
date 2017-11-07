@@ -3,10 +3,10 @@ var router = express.Router();
 
 var moviesModel = require('../models/movies/movies.js')
 
-/* GET /home. */
+/* GET /movie. */
 router.get('/', function(req, res, next) {
     moviesModel.find({}).exec().then(function(movies) {
-        res.render('home', {
+        res.render('movie', {
             title: 'ifredom movies',
             movies: movies
         });
@@ -30,7 +30,7 @@ var detailMovie = {
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
     moviesModel.findById(id, function(err, movie) {
-        res.render('detail', movie);
+        res.render('moviedetail', movie);
     })
 });
 

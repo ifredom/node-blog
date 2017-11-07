@@ -7,7 +7,8 @@
         "node_modules/**/node_modules"
     ],
     "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "PORT": "3003"
     },
     "execMap": {
         "": "node",

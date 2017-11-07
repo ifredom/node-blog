@@ -18,7 +18,6 @@
     "connect-mongo": "^2.0.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "ejs": "^2.5.7",
     "express": "~4.15.5",
     "express-formidable": "^1.0.0",
     "express-session": "^1.15.6",
@@ -34,7 +33,6 @@
     "winston": "^2.4.0"
   },
   "devDependencies": {
-    "ejs": "^2.5.7",
     "istanbul": "^0.4.5",
     "nodemon": "^1.12.1"
   }
