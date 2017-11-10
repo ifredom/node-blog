@@ -3,9 +3,43 @@ html
   head
     block meta
       meta(charset="utf-8")
-      meta(ame="description", content="ifredom：ifredom博客")
+      meta(ame="description", content="ifredom：ifredom博客,您所感兴趣的尽在这里 ——阅读、收集、分享你所关心的内容从来没有这么容易")
       meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
       meta(name="keywords" content="ifredom, nodejs, node, express, connect, socket.io")
+      //- <!-- Facebook Open Graph -->
+      meta(property="fb:app_id" content="0000000")
+      meta(property="og:type" content="ifredom:magazine")
+      meta(property="og:url" content="localhost")
+      meta(property="og:title" content="ifredom - 查看你所想")
+      meta(property="og:description" content="ifredom：ifredom博客,您所感兴趣的尽在这里 ——阅读、收集、分享你所关心的内容从来没有这么容易")
+
+      //- <!-- Facebook Applinks -->
+      meta(property="al:android:app,_name" content="ifredom,blog")
+      meta(property="al:android:package", content="ifredom.app")
+      meta(property="al:web:url", content="localhost")
+      meta(property="al:android:url", content="ifredom://")
+      meta(property="al:ios:url", content="ifredom://")
+      meta(property="al:ios:app_store_id", content="00000000")
+      meta(property="al:ios:app_name", content="ifredom")
+
+      //- <!-- Twitter Cards -->
+      meta(name="twitter:card", content="app")
+      meta(name="twitter:site", content="@ifredom")
+      meta(name="twitter:url", content="localhost")
+      meta(name="twitter:title", content="ifredom - 查看你所想")
+      meta(name="twitter:description", content="ifredom：ifredom博客,您所感兴趣的尽在这里 ——阅读、收集、分享你所关心的内容从来没有这么容易 ")
+      meta(name="twitter:image:src", content="")
+      meta(name="twitter:app:name:iphone", content="ifredom")
+      meta(name="twitter:app:id:iphone", content="0000000123")
+      meta(name="twitter:app:url:iphone", content="flipboard://")
+      meta(name="twitter:app:name:ipad", content="ifredom")
+      meta(name="twitter:app:id:ipad", content="0000000123")
+      meta(name="twitter:app:url:ipad", content="ifredom://")
+      meta(name="twitter:app:name:googleplay", content="ifredom")
+      meta(name="twitter:app:id:googleplay", content="ifredom.app")
+      meta(name="twitter:app:url:googleplay", content="ifredom://")
+      link(rel="alternate", type="application/rss+xml", href="")
+      
       title  #{blog.title}
     block scripts
       link(rel="stylesheet", href="/lib/bootstrap/bootstrap.min.css")
