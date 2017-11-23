@@ -1,16 +1,18 @@
 extends ./../../components/layout
 
 block content
-  - doctor = doctor
-  - title = title
-  - country = country
-  - year = year
-  - language = language
-  - summary = summary
-  - flash = flash
+  - doctor = movies.doctor
+  - title = movies.title
+  - country = movies.country
+  - year = movies.year
+  - language = movies.language
+  - summary = movies.summary
+  - flash = movies['flash']
+  - id = movies['id']
   .container
     .row(style="margin-top:30px;")
       form(action="/movie/add" method="post")
+        input(type="hidden", name='id', value=id)
         form-group
           label(class="col-sm-2",for="exampleInputEmail1") 导演
           .col-sm-10
@@ -39,6 +41,6 @@ block content
           label(class="col-sm-2") 视频地址
           .col-sm-10
             input(class="form-control",type="text",name="flash",placeholder="flash" value=flash)
-        button(type="submit" class="btn btn-primary") 添加
+        button(type="submit" class="btn btn-primary") 录入电影
       form(action="/movie/list" method="GET")
         a(href="/movie/list" class="btn btn-primary") 管理列表

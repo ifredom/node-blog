@@ -1223,9 +1223,9 @@ mkdirp@0.5.x, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-moment@^2.19.1:
-  version "2.19.1"
-  resolved "http://registry.npm.taobao.org/moment/download/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
+moment@^2.19.2:
+  version "2.19.2"
+  resolved "http://registry.npm.taobao.org/moment/download/moment-2.19.2.tgz#8a7f774c95a64550b4c7ebd496683908f9419dbe"
 
 mongodb-core@2.1.17:
   version "2.1.17"
@@ -1780,6 +1780,10 @@ uid-safe@~2.1.5:
   resolved "http://registry.npm.taobao.org/uid-safe/download/uid-safe-2.1.5.tgz#2b3d5c7240e8fc2e58f8aa269e5ee49c0857bd3a"
   dependencies:
     random-bytes "~1.0.0"
+
+underscore@^1.8.3:
+  version "1.8.3"
+  resolved "http://registry.npm.taobao.org/underscore/download/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"

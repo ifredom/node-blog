@@ -33,9 +33,7 @@ moviesShema.pre('save', function (next) {
 //         return this.find({}).sort('meta.updateAt')
 //     },
 //     findOne: function (id, cb) {
-//         return this.findOne({
-//             _id: id
-//         })
+//         return this.findOne({_id: id})
 //     }
 // }
 var movies = mongoose.model('movies', moviesShema)
