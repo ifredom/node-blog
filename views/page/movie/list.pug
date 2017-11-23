@@ -1,0 +1,31 @@
+extends ./../../components/layout
+
+block content
+  .container
+    header
+      h1.text-center  电影管理列表
+    table.table
+      thead
+        tr
+          th 电影名称
+          th 导演
+          th 国家
+          th 上映年份
+          th.text-center 查看
+          th.text-center 更新
+          th.text-center 删除
+      tbody.table-striped
+        each item in movies
+          - lookItem = "/movie/"+item._id
+          - updateItem = "/movie/update/"+item._id
+          tr
+            td #{item.title}
+            td #{item.doctor}
+            td #{item.country}
+            td #{item.year}
+            td.text-center
+              a(href=lookItem) 查看
+            td.text-center
+              a(href=updateItem) 编辑
+            td.text-center
+              button(class="btn btn-danger",data-id="#{item._id}") 删除

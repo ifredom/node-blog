@@ -1,37 +1,80 @@
+import {
+    Error
+} from 'mongoose';
+
 var express = require('express');
 var router = express.Router();
 
-var moviesModel = require('../models/movies/movies.js')
+var errorHandle = require('./error')
+var moviesModel = require('../models/movies/movies')
 
-/* GET /movie. */
-router.get('/', function(req, res, next) {
-    moviesModel.find({}).exec().then(function(movies) {
-        res.render('movie', {
+/**
+ * url  GET /movie
+ */
+router.get('/', function (req, res, next) {
+    moviesModel.find({}).exec().then(function (movies) {
+        res.render('page/movie/movie', {
             title: 'ifredom movies',
             movies: movies
         });
     })
-});
-// flash: 'http://v.youku.com/v_show/id_XMzEzMzIwMDAyMA==.html?spm=a2h0j.8191423.playlist_content.5~5~5~A&f=51298871&from=y1.2-3.4.1',
-var detailMovie = {
-    title: ' imooc 详情页',
-    movie: {
-        doctor: '何塞*帕迪里亚',
-        country: '美国',
-        title: '机械战警',
-        year: 2014,
-        poster: 'http://b.hiphotos.baidu.com/image/pic/item/838ba61ea8d3fd1fe81797463a4e251f95ca5fab.jpg',
-        language: '英语',
-        summary: '翻牌子1978哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈扽店内ihi和',
-        flash: 'http://pic.ibaotu.com/00/25/86/008888piCNE6.mp4'
-    }
-};
-/* GET /detaile页面. */
-router.get('/:id', function(req, res, next) {
-    var id = req.params.id;
-    moviesModel.findById(id, function(err, movie) {
-        res.render('moviedetail', movie);
+})
+/**
+ * url  GET /movie/list
+ */
+router.get('/list', function (req, res, next) {
+    moviesModel.find({}).exec().then(function (movies) {
+        console.log(movies)
+        res.render('page/movie/list', {
+            title: 'ifredom movies',
+            movies: movies
+        })
     })
 });
+/**
+ * url  GET /movie/add
+ */
+router.get('/add', function (req, res, next) {
+    res.render('page/movie/addmovie', {
+        title: '机械风暴ifredom',
+        doctor: '李安',
+        country: '中国',
+        year: 2017,
+        language: '中文',
+        summary: '这一个快乐的电影，据说是...',
+        flash: 'http://www.w3school.com.cn/example/html5/mov_bbb.mp4'
+    })
+    res.end()
+});
+/**
+ * url  GET /movie/detaile
+ */
+router.get('/:id', function (req, res, next) {
+    var id = req.params.id
 
-module.exports = router;
+    moviesModel.findById(id, function (err, movies) {
+        if (err) {
+            errorHandle(err)
+        }
+        res.render('page/movie/moviedetail', {
+            title: 'ifredom movies',
+            movies: movies
+        })
+    })
+})
+/**
+ * url  POST /movie/add
+ */
+router.post('/add', (req, res, next) => {
+    var query = req.body
+    var movie = new moviesModel(query)
+    movie.save(function (err) {
+        if (err) {
+            console.log(err)
+        }
+        res.status('success').redirect('/movie')
+    })
+})
+
+
+module.exports = router

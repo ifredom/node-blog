@@ -1,0 +1,30 @@
+
+extends ./../../components/layout
+
+block content
+  include ./../../components/header
+
+  if movies.length>0
+    .container
+      .row
+        each item in movies
+          - movieurl = '/movie/'+item._id
+          - imgUrl = item.flash
+          .col-md-3
+            .thumbnail
+              a(href=movieurl)
+                img(src='/image/books/li.jpg')
+              .caption
+                h3 #{item.title}
+                p
+                  p 导演:#{item.doctor}
+                  p 简介:#{item.summary}
+                  a.btn.btn-primary(href=movieurl,role="button") 观看影片
+      .row
+        a(href="/movie/add") 添加影片
+  else
+    .container
+      .row
+        a(href="/movie/add") 添加影片
+
+
