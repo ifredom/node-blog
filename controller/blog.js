@@ -5,7 +5,7 @@ var router = express.Router();
 
 /* GET /index. */
 router.get('/', (req, res, next) => {
-  res.render('blog', {
+  res.render('page/blog/blog', {
     title: 'ifredom-Blog 登陆'
   })
   res.end();

@@ -88,7 +88,7 @@ router.post('/add', (req, res, next) => {
     var id = req.body['id']
     var _movie
     
-    if (id&&id !=='undefined'){
+    if (id&&id !=='undefined'){// 添加
         moviesModel.findById(id, function (err, movies) {
             if (err) {
                 errorHandle(err)
@@ -101,7 +101,7 @@ router.post('/add', (req, res, next) => {
                 res.redirect('/movie/' + id)
             })
         })
-    }else{
+    }else{// 更新
         _movie = new moviesModel({
             title: movieObj.title,
             doctor: movieObj.doctor,
@@ -113,9 +113,26 @@ router.post('/add', (req, res, next) => {
         })
         _movie.save(function (err) {
             if (err) {
-                console.log(err)
+                errorHandle(err)
             }
             res.status('success').redirect('/movie')
+        })
+    }
+
+})
+router.delete('/list', (req, res) => {
+    var id = req.body.id
+
+    if(id){
+        moviesModel.where().findOneAndRemove((err,movie)=>{
+            if(err){
+                errorHandle(err)
+            }else{
+                res.json({
+                    statuscode:200,
+                    msg:'删除成功'
+                })
+            }
         })
     }
 

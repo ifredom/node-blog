@@ -1,14 +1,27 @@
 #logo
   .advator
-    img(src="image/logo.jpg", alt="")
 .nav-tabs
   .tab
+    a(href="") 程序
+  .tab
+    a(href="") 故事与酒
+  .tab
+    a(href="") 书
+  .tab
     a(href="/movie") 电影
-  .tab
-    a(href="") 编程
-  .tab
-    a(href="") 杂谈
-  .tab
-    a(href="") 读书
-  .tab
-    a(href="") 关于我
+ul.about-me
+  li
+    div.title 
+      img(src="/image/logo.jpg", alt="")
+      span ifredom
+  li
+    div.title 
+      img(src="/image/github.jpg", alt="") 
+      span https://github.com/ifredom
+  li
+    div.title
+      img(src="/image/email.png", alt="") 
+      span 1950735817@qq.com
+  li
+    div.time
+      span #{moment().format('YYYY-DD-MM H:MM:SS A')}
