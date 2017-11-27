@@ -151,7 +151,6 @@ a {
     display: block;
     color: inherit
 }
-
 article,
 aside,
 footer,
@@ -163,7 +162,8 @@ section {
 
 a:active,
 a:hover {
-    outline-width: 0
+    outline-width: 0;
+    text-decoration: none;
 }
 
 abbr[title] {
