@@ -101,7 +101,6 @@ a:hover {
   position: fixed;
   left: 0;
   top: 0;
-  width: 16%;
   height: 100%;
   min-height: 600px;
   padding-left: 0;
@@ -110,7 +109,7 @@ a:hover {
 }
 
 .blog .web-content {
-  margin-left: 16%;
+  margin-left: 16.67%;
   height: 100%;
 }
 
@@ -137,7 +136,7 @@ a:hover {
 }
 
 .blog .nav-tabs {
-  padding-right: 40px;
+  padding-left: 40px;
   font-size: 1.6em;
   text-align: right;
 }
@@ -164,6 +163,7 @@ a:hover {
   border-radius: 50%;
 }
 .blog .tab {
+  display: block;
   margin-top:8px;
   margin-bottom:8px;
 }
@@ -210,7 +210,223 @@ a:hover {
   padding: 0 15px;
   height: 200px;
 }
-
 .blog .web-content .book img {
   width: 100%;
+}
+@media (min-width: 768px){
+  .blog .web-content  {
+    margin-left: 25%;
+  }
+}
+@media (min-width: 992px){
+  .blog .web-content  {
+    margin-left: 16.6%;
+  }
+}
+@media (max-width: 414px){
+  .blog .web-content  {
+    margin-left: 25%;
+  }
+}
+
+/* blog-content-card */
+.blog .article{
+  overflow: hidden
+}
+.blog .material-card {
+    position: relative;
+    height: 0;
+    padding-bottom: calc(100% - 16px);
+    margin-top: 1.5em;
+    margin-bottom: 10.6em;
+}
+.blog .material-card.Red h2 {
+    background-color: #f44336;
+}
+.blog .material-card.mc-active h2 {
+    top: 0;
+    padding: 10px 16px 10px 90px;
+}
+.blog .material-card h2 {
+    position: absolute;
+    top: calc(100% - 16px);
+    left: 0;
+    width: 100%;
+    padding: 10px 16px;
+    color: #fff;
+    font-size: 1.4em;
+    line-height: 1.6em;
+    margin: 0;
+    z-index: 10;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.blog .material-card h2:before,
+.blog .material-card h2:after {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    top: -16px;
+    width: 0;
+    border: 8px solid;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.blog .material-card h2:after {
+    top: auto;
+    bottom: 0;
+}
+.blog .material-card.Red.mc-active h2:before {
+  border-top-color: transparent;
+  border-right-color: #f44336;
+  border-bottom-color: #f44336;
+  border-left-color: transparent;
+}
+.blog .material-card.Red h2:before {
+    border-top-color: transparent;
+    border-right-color: #b71c1c;
+    border-bottom-color: #b71c1c;
+    border-left-color: transparent;
+}
+.blog .material-card.Red.mc-active h2:after {
+    border-top-color: #b71c1c;
+    border-right-color: #b71c1c;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+}
+.blog .material-card.Red h2:after {
+    border-top-color: #f44336;
+    border-right-color: #f44336;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+}
+.blog .material-card h2 strong {
+    font-weight: 400;
+    display: block;
+    font-size: .8em;
+}
+.blog .material-card .mc-content {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 16px;
+    left: 16px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.blog .material-card .img-container {
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.blog .material-card .mc-description {
+    position: absolute;
+    top: 100%;
+    right: 30px;
+    left: 30px;
+    bottom: 54px;
+    overflow: hidden;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-transition: all 1.2s;
+    -moz-transition: all 1.2s;
+    -ms-transition: all 1.2s;
+    -o-transition: all 1.2s;
+    transition: all 1.2s;
+}
+.blog .material-card .mc-btn-action {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 5px solid;
+    width: 54px;
+    height: 54px;
+    line-height: 44px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    z-index: 20;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.blog .material-card.Red .mc-btn-action {
+    background-color: #f44336;
+}
+.blog .material-card.Red .mc-btn-action:hover {
+    background-color: #b71c1c;
+}
+.blog .material-card .mc-footer {
+    height: 0;
+    overflow: hidden;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.blog .material-card.Red .mc-footer h4 {
+    color: #b71c1c;
+}
+.blog .material-card .mc-footer h4 {
+    position: absolute;
+    top: 200px;
+    left: 30px;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    -webkit-transition: all 1.4s;
+    -moz-transition: all 1.4s;
+    -ms-transition: all 1.4s;
+    -o-transition: all 1.4s;
+    transition: all 1.4s;
+}
+.blog .material-card.Red .mc-footer a {
+    background-color: #b71c1c;
+}
+.blog .material-card .mc-footer a:nth-child(2) {
+    -webkit-transition: all 0.6s;
+    -moz-transition: all 0.6s;
+    -ms-transition: all 0.6s;
+    -o-transition: all 0.6s;
+    transition: all 0.6s;
+}
+.blog .material-card .mc-footer a {
+    display: block;
+    float: left;
+    position: relative;
+    width: 52px;
+    height: 52px;
+    margin-left: 5px;
+    margin-bottom: 15px;
+    font-size: 28px;
+    color: #fff;
+    line-height: 52px;
+    text-decoration: none;
+    top: 200px;
 }
