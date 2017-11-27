@@ -105,7 +105,7 @@ a:hover {
   min-height: 600px;
   padding-left: 0;
   padding-right: 0;
-  background: url("/image/navbg.jpg") no-repeat 0 0;
+  background-color: #3f3f3f;
 }
 
 .blog .web-content {
