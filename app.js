@@ -1,41 +1,40 @@
 require("babel-core/register") //使用es6语法
-    // 安装服务
-    // mongod--install--serviceName MongoDB--serviceDisplayName MongoDB--logpath C: \mongodb\ data\ log\ mongod.Log--dbpath C: \mongodb\ data\ db--directoryperdb
-    // 启动mongodb服务 mongod --dbpath C:\mongodb\data\db
-require('./mongodb/mongodb.js');
+require('./mongodb/mongodb.js') // 连接Mongdb数据库服务
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+var express = require('express')
+var path = require('path')
+var favicon = require('serve-favicon')
+var logger = require('morgan')
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser')
+var session = require('express-session')
 
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
-var winston = require('winston');
-var expressWinston = require('express-winston');
+var MongoStore = require('connect-mongo')(session) // 访问服务器时，保存或更新session到数据库mongodb
+var winston = require('winston') // 输出日志
+var expressWinston = require('express-winston') // 输出日志，依赖于winston包
+var merge = require('webpack-merge') // 对象合并工具
 
-var routes = require('./routes');
-var pkg = require('./package');
-var config = require('./config');
-var app = express();
+var routes = require('./routes')
+var config = require('./config')
+var app = express()
 
 // 视图引擎设置
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+// *设置为pug
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'pug')
+// *设置为html或者ejs，ejs太老过时了,html无法复用模板
 // app.set('view engine', 'html');
 // app.engine('.html', require('ejs').__express);
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev')); // 加载日志中间件。
-app.use(bodyParser.json()); // 加载解析json的中间件。
-app.use(bodyParser.urlencoded({ extended: false })); // 加载解析urlencoded请求体的中间件。
-app.use(cookieParser());
-// 设置静态文件目录
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+app.use(logger('dev')) // 加载日志中间件。
+app.use(bodyParser.json()) // 加载解析json的中间件。
+app.use(bodyParser.urlencoded({ extended: false })) // 加载解析urlencoded请求体的中间件。
+app.use(cookieParser()) // 加载解析cookei的中间件。
 
-// app.use('/dist', express.static(resolve('./dist'))) // vue单页设置
+// 设置静态文件目录
+app.use(express.static(path.join(__dirname, 'public')))
+// app.use('/dist', express.static(resolve('./dist'))) // vue单页项目时设置静态文件目录，直接加载buld生成的目录，一般为dist
 
 // session 中间件
 app.use(session({
@@ -49,24 +48,13 @@ app.use(session({
     store: new MongoStore({ // 将 session 存储到 mongodb
         url: config.mongodb // mongodb 地址
     })
-}));
-
-
-// 处理表单及文件上传的中间件
-// app.use(require('express-formidable')({
-//     uploadDir: path.join(__dirname, 'public/image'), // 上传文件目录
-//     keepExtensions: true // 保留后缀
-// }));
+}))
 
 // 设置模板全局常量
 app.locals.moment = require('moment')
-app.locals.blog = {
-    title: pkg.name,
-    description: pkg.description
-};
+app.locals.blog = merge({}, config.blog)
 
-
-// 正常请求的日志
+// 输出正常请求的日志
 if (app.get('env') !== 'development') {
     app.use(expressWinston.logger({
         transports: [
@@ -75,13 +63,13 @@ if (app.get('env') !== 'development') {
                 colorize: true
             }),
             new winston.transports.File({
-                filename: 'logs/success.log'
+                filename: 'logs/success.log'  // 输出地址
             })
         ]
-    }));
+    }))
 }
 // 路由
-routes(app);
+routes(app)
 
 // 错误请求的日志
 app.use(expressWinston.errorLogger({
@@ -91,29 +79,18 @@ app.use(expressWinston.errorLogger({
             colorize: true
         }),
         new winston.transports.File({
-            filename: 'logs/error.log'
+            filename: 'logs/error.log' // 输出地址
         })
     ]
-}));
+}))
 
 // 404 page
 app.use(function(req, res) {
-    const err = new Error('Not Found');
+    const err = new Error('Not Found')
     res.status(404).render('404', {
         message: err.message,
         error: err
-    });
-});
+    })
+})
 
-// error page
-// app.use(function(err, req, res, next) {
-//     // render the error page
-//     res.locals.message = err.message;
-//     res.locals.error = req.app.get('env') === 'development' ? err : {};
-//     res.status(err.status || 500);
-//     res.render('error', {
-//         error: err
-//     });
-// });
-
-module.exports = app;
+module.exports = app

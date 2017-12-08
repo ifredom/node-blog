@@ -2,8 +2,12 @@ doctype
 html
   head
     block meta
+      - description = blog.description
+      - author = blog.author
+
       meta(charset="utf-8")
-      meta(ame="description", content="ifredom：ifredom博客,您所感兴趣的尽在这里 ——阅读、收集、分享你所关心的内容从来没有这么容易")
+      meta(ame="description", content=description)
+      meta(ame="author", content=author)
       meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
       meta(name="keywords" content="ifredom, nodejs, node, express, javascript, vue, react, 前端, socket.io")
       //- <!-- Facebook Open Graph -->
@@ -11,7 +15,7 @@ html
       meta(property="og:type" content="ifredom:magazine")
       meta(property="og:url" content="localhost")
       meta(property="og:title" content="ifredom - 查看你所想")
-      meta(property="og:description" content="ifredom：ifredom博客,您所感兴趣的尽在这里 ——阅读、收集、分享你所关心的内容从来没有这么容易")
+      meta(property="og:description" content=description)
 
       //- <!-- Facebook Applinks -->
       meta(property="al:android:app,_name" content="ifredom,blog")
@@ -27,7 +31,7 @@ html
       meta(name="twitter:site", content="@ifredom")
       meta(name="twitter:url", content="localhost")
       meta(name="twitter:title", content="ifredom - 查看你所想")
-      meta(name="twitter:description", content="ifredom：ifredom博客,您所感兴趣的尽在这里 ——阅读、收集、分享你所关心的内容从来没有这么容易 ")
+      meta(name="twitter:description", content=description)
       meta(name="twitter:image:src", content="")
       meta(name="twitter:app:name:iphone", content="ifredom")
       meta(name="twitter:app:id:iphone", content="0000000123")
@@ -38,7 +42,6 @@ html
       meta(name="twitter:app:name:googleplay", content="ifredom")
       meta(name="twitter:app:id:googleplay", content="ifredom.app")
       meta(name="twitter:app:url:googleplay", content="ifredom://")
-      link(rel="alternate", type="application/rss+xml", href="")
 
       title  #{blog.title}
     block scripts
