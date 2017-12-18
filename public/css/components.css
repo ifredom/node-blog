@@ -20,7 +20,11 @@
     background-image: none;
     color: rgba(255,255,255,1);
     border: 1px solid rgba(255,255,255,0.5);
+    background-color: rgba(0,0,0,0.5);
     transition:all 0.5s;
+}
+.ta-button a{
+    color: #E7E7E7;
 }
 /*
 * @type Button-animate
@@ -38,7 +42,7 @@
     left: 0;
     top: 0;
     opacity:1;
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(0,0,0,0.5);
 
     transition:all 0.5s;
 }
@@ -106,7 +110,7 @@
     left: 0;
     top: 0;
     opacity: 1;
-    background-color: rgba(255,255,255,0.25);
+    background-color: rgba(0,0,0,0.5);
     transition:all 0.5s;
 }
 .ta-button-slip:hover::after{
