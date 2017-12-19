@@ -1,5 +1,5 @@
 module.exports = {
-    port: process.env.PORT ? process.env.PORT: 3003, // 端口号
+    port: process.env.PORT ? process.env.PORT: 3004, // 端口号
     mongodb: 'mongodb://localhost:27017/ifredomblog',  // 数据库地址
     session: {
         key: 'ifredomblog',

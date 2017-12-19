@@ -1,0 +1,13 @@
+extends ./../../components/layout
+
+block append scripts
+  link(src='/css/page/blog.css')
+block content
+  .container.page.blog
+    .row
+      nav.col-xs-3.col-sm-3.col-md-2.web-nav
+        include ../blog/nav
+      section.col-xs-15.col-sm-9.col-md-10.web-content
+        //- include content_nav
+        include content
+

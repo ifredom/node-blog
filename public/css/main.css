@@ -23,8 +23,8 @@ a:hover {
 }
 /* login page */
 #loginpage{
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background: url('/image/login/bg3.jpg') no-repeat 0 0;
   background-size: cover;
 }
@@ -110,7 +110,7 @@ a:hover {
   min-height: 600px;
   padding-left: 0;
   padding-right: 0;
-  background-color: #333;
+  background-color: #EEC591;
 }
 .blog .web-nav .navlist{
   margin-top: 2rem;
@@ -122,7 +122,7 @@ a:hover {
 .blog #logo {
   position: relative;
   height: 200px;
-  background: #f5de7e;
+  background-color: #f5de7e;
   background-size: 100%;
 }
 
@@ -209,6 +209,7 @@ a:hover {
   /* text-overflow:ellipsis; */
 }
 .blog .web-content .article-describe time{
+  flex: 1;
   margin-left: 15px;
   font-style: normal;
   font-size: 12px;
@@ -408,4 +409,38 @@ figure.effect-lily:hover p {
 	#articles figure {
 		width: 100%;
 	}
+}
+/* article-page */
+#article-detail {
+  background-color: #f5f5d5;
+}
+#article-detail figure .figureimg{
+  width:100%;
+  height: 240px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+#article-detail figure img{
+  display: block;
+  width:100%;
+}
+#article-detail figure figcaption{
+  margin: 4rem auto 2rem auto;
+  text-align: center;
+}
+.comment {
+  padding: 1rem;
+  background-color: #f5f5d5;
+}
+.comment .title{
+  font-size: 1.8rem;
+}
+
+.comment .comment-email,
+.comment .comment-username,
+.comment .comment-detail{
+  margin: 1rem 0;
+}
+.comment .comment-submit{
+  margin-top: 1rem;
 }

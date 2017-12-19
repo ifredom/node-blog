@@ -13,7 +13,7 @@ var moviesModel = require('../models/movies/movies')
  */
 router.get('/', function (req, res, next) {
     moviesModel.find({}).exec().then(function (movies) {
-        res.render('page/movie/movie', {
+        res.render('frontpage/page/movie/movie', {
             movies: movies
         });
     })
@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
  */
 router.get('/list', function (req, res, next) {
     moviesModel.find({}).exec().then(function (movies) {
-        res.render('page/movie/list', {
+        res.render('frontpage/page/movie/list', {
             title: '电影列表',
             movies: movies
         })
@@ -33,7 +33,7 @@ router.get('/list', function (req, res, next) {
  * url  GET /movie/add
  */
 router.get('/add', function (req, res, next) {
-    res.render('page/movie/addmovie', {
+    res.render('frontpage/page/movie/addmovie', {
         movies:{
             title: '机械风暴ifredom',
             doctor: '李安',
@@ -57,7 +57,7 @@ router.get('/update/:id', function (req, res, next) {
             if (err) {
                 errorHandle(err)
             }
-            res.render('page/movie/addmovie', {
+            res.render('frontpage/page/movie/addmovie', {
                 id: id,
                 movies: movies
             })
@@ -74,7 +74,7 @@ router.get('/:id', function (req, res, next) {
         if (err) {
             errorHandle(err)
         }
-        res.render('page/movie/moviedetail', {
+        res.render('frontpage/page/movie/moviedetail', {
             title: '电影详情页',
             movies: movies
         })
@@ -87,7 +87,7 @@ router.post('/add', (req, res, next) => {
     var movieObj = req.body
     var id = req.body['id']
     var _movie
-    
+
     if (id&&id !=='undefined'){// 添加
         moviesModel.findById(id, function (err, movies) {
             if (err) {

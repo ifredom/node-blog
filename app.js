@@ -88,7 +88,7 @@ app.use(expressWinston.errorLogger({
 // 404 page
 app.use(function(req, res) {
     const err = new Error('Not Found')
-    res.status(404).render('404', {
+    res.status(404).render('frontpage/404', {
         message: err.message,
         error: err
     })

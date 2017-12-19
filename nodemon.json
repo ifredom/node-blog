@@ -1,6 +1,6 @@
 {
-    "restartable": "rs", 
-    "verbose": true, 
+    "restartable": "rs",
+    "verbose": true,
     "ignore": [
         ".git",
         ".svn",
@@ -9,6 +9,9 @@
     "env": {
         "NODE_ENV": "development"
     },
+    "watch":[
+        "blog/*.*"
+    ],
     "execMap": {
         "": "node",
         "js": "node --harmony"

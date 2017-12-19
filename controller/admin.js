@@ -3,16 +3,16 @@ var express = require('express')
 var formidable = require('formidable')
 var router = express.Router()
 
-/* GET /blog. */
+/* GET /admin. */
 router.get('/', (req, res, next) => {
-  res.render('frontpage/page/blog/blog', {
+  res.render('adminpage/home/blog', {
     title: 'ifredom博客主页'
   })
   res.end()
 })
-/* GET /blog/article. */
-router.get('/article', (req, res, next) => {
-  res.render('frontpage/page/article/index', {
+/* GET /blog/add. */
+router.get('/add', (req, res, next) => {
+  res.render('adminpage/page/article/index', {
     title: '文章'
   })
   res.end()

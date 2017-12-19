@@ -5,7 +5,7 @@ var adminModel = require('../models/admin/admin.js')
 
 /* GET /register. */
 router.get('/', function(req, res, next) {
-    res.render('register')
+    res.render('frontpage/register')
 })
 
 /* POST /register. */
