@@ -16,33 +16,17 @@ html(class="no-js")
       //- No Baidu Siteapp
       meta(http-equiv="Cache-Control" content="no-siteapp")
       link(rel="icon" type="image/png" href="favicon.ico")
-      //- Add to homescreen for Chrome on Android
-      meta(name="mobile-web-app-capable" content="yes")
-      link(rel="icon" sizes="192x192" href="adminasset/i/app-icon72x72@2x.png")
-      //- Add to homescreen for Safari on iOS
-      meta(name="apple-mobile-web-app-capable" content="yes")
-      meta(name="apple-mobile-web-app-status-bar-style" content="black")
-      meta(name="apple-mobile-web-app-title" content="Amaze UI")
-      link(rel="apple-touch-icon-precomposed" href="adminasset/i/app-icon72x72@2x.png")
-      //- Tile icon for Win8 (144x144 + tile color)
-      meta(name="msapplication-TileImage" content="adminasset/i/app-icon72x72@2x.png")
-      meta(name="msapplication-TileColor" content="#0e90d2")
 
       title  后台管理系统
 
     block scripts
-      link(rel="stylesheet" href="adminasset/css/amazeui.min.css")
-      link(rel="stylesheet" href="adminasset/css/app.css")
+      link(rel="stylesheet", href="/lib/bootstrap/bootstrap.min.css")
+      link(rel="stylesheet", href="/font/iconfont.css")
+      link(rel="stylesheet", href="/adminasset/css/app.css")
+
+      script(type="text/javascript", src="/lib/jquery/jquery.2.2.0.min.js")
+      script(type="text/javascript", src="/lib/bootstrap/bootstrap.min.js")
   body
     block content
-
     block footer
-      <!--[if (gte IE 9)|!(IE)]><!-->
-      script(src="adminasset/js/jquery.2.2.0.min.js")
-      <!--<![endif]-->
-      <!--[if lte IE 8 ]>
-      script(src="adminasset/js/jquery.1.11.3.min.js")
-      script(src="adminasset/js/modernizr.2.8.3.min.js")
-      script(src="adminasset/js/amazeui.ie8polyfill.min.js")
-      <![endif]-->
-      script(src="adminasset/js/amazeui.min.js")
+

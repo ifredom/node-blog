@@ -9,9 +9,6 @@
     "env": {
         "NODE_ENV": "development"
     },
-    "watch":[
-        "blog/*.*"
-    ],
     "execMap": {
         "": "node",
         "js": "node --harmony"

@@ -25,15 +25,27 @@ router.post('/', function(req, res) {
     } catch (e) {
         return res.redirect('/register');
     }
-    password = sha1(password);
-    var admin = new adminModel({ name: name, password: password })
-    admin.save(function(err) {
-        if (err) {
-            console.log(err)
+
+    adminModel.findOne({
+        name: name
+    }).exec().then(function (user) {
+        if (user) {
+            console.log('用户已存在！')
+            return res.redirect('back')
         }
-        // saved success!
-        res.status('success').redirect('login')
+
+        //如果不存在则新增用户
+        password = sha1(password);
+        var admin = new adminModel({ name: name, password: password })
+        admin.save(function(err) {
+            if (err) {
+                console.log(err)
+            }
+            // saved success!
+            res.status('success').redirect('login')
+        })
     })
+
 })
 
 module.exports = router;

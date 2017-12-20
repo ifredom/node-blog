@@ -1,0 +1,44 @@
+<form class="form-horizontal" id="publish-article" role="search">
+
+    //- <label for="basic-url">标题</label>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">标题</span>
+        <input type="text" class="form-control" id="publish-title" name="title" aria-describedby="basic-addon3">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2">正文</span>
+        <textarea class="form-control" id="publish-text" rows="3" name="maintext"></textarea>
+    </div>
+    <div class="input-group">
+        <label for="publish-picture">选择图片</label>
+        <input type="file" id="publish-picture" name="picture">
+    </div>
+    <div class="input-group">
+        <input type="submit" class="btn btn-primary submit">
+    </div>
+</form>
+script.
+    $(function(){
+        var title = $('#publish-title')
+        var text = $('#publish-text')
+        var picture = $('#publish-picture')
+        var submit = $('.submit')
+        console.log(title.val())
+        submit.click(function(){
+            console.log("提交")
+            $.ajax({
+                url:'/admin/article/add',
+                type:'post',
+                data:{
+                    title:title.val(),
+                    text:text.val(),
+                    picture:picture.val()
+                },
+                dataType:'json',
+            }).done(function(ret){
+
+                console.log(ret)
+                console.log("返回值")
+            })
+        })
+    })

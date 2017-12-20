@@ -1,1 +1,11 @@
 /* Write your styles */
+/* 首页 home */
+.home-nav,
+.home-content{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+/* 发布文章页面 /article/add */
+#publish-article .input-group{
+    margin: 1rem 0;
+}

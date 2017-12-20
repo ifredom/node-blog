@@ -5,17 +5,24 @@ var router = express.Router()
 
 /* GET /admin. */
 router.get('/', (req, res, next) => {
-  res.render('adminpage/home/blog', {
-    title: 'ifredom博客主页'
+  res.render('adminpage/page/home/home', {
+    title: '管理后台首页'
   })
   res.end()
 })
-/* GET /blog/add. */
-router.get('/add', (req, res, next) => {
-  res.render('adminpage/page/article/index', {
+/* GET /admin/article/add. */
+router.get('/article/add', (req, res, next) => {
+  res.render('adminpage/page/addarticle/index', {
     title: '文章'
   })
   res.end()
 })
 
+router.post('/article/add', (req, res, next) => {
+  console.log(req.body)
+  res.json({
+    statusCode: 200,
+    msg: '添加成功'
+  }).end()
+})
 module.exports = router

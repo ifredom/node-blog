@@ -23,18 +23,14 @@ router.post('/', function(req, res, next) {
         password: password
     }).exec().then(function(user) {
         if (!user) {
-            return res.redirect('back')
-        }
-        // 检查密码是否匹配
-        if (password !== user.password) {
             console.log('用户名或密码错误')
-            res.end()
-            // return res.redirect('back')
+            return res.redirect('back')
         }
 
         // 用户信息写入 session
         delete user.password
         req.session.user = user
+
         // 跳转到主页
         res.redirect('/blog')
     })
