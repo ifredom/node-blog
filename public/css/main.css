@@ -444,3 +444,12 @@ figure.effect-lily:hover p {
 .comment .comment-submit{
   margin-top: 1rem;
 }
+/* 项目列表页 /project*/
+.project-list .project-list-item a{
+    display: block;
+    width: 100%;
+}
+.project-list .project-list-item a figure,
+.project-list .project-list-item a img{
+    width: 100%;
+}

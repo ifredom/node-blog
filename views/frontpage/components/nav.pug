@@ -1,0 +1,27 @@
+.row#logo
+  .advator
+    img(src="/image/logo.jpg", alt="")
+  .row
+    div.btn.login
+      a(href="/login") 登录
+    div.btn.reg
+      a(href="/register") 注册
+.row.navlist
+
+  .tab.ta-button.ta-button-cross
+    a(href="/blog") 首页
+  .tab.ta-button.ta-button-cross
+    a(href="/movie") 电影管理
+  .tab.ta-button.ta-button-cross
+    a(href="/admin") 管理后台
+  .tab.ta-button.ta-button-cross
+    a(href="/project") 特效日常
+ul.row.about-me
+  li
+    div.title
+      img(src="/image/github.jpg", alt="")
+  li
+    div.title
+      img(src="/image/email.png", alt="")
+  div.time
+    span #{moment().format('YYYY-DD-MM A')}

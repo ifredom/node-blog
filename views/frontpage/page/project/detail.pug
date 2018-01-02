@@ -1,0 +1,15 @@
+extends ./../../components/layout
+
+block append scripts
+  link(src='/css/page/blog.css')
+block content
+  .container
+    //- - id = id
+    .row
+        h1 #{title}
+        if(id==0)
+            include ../../selfproject/effect_of_typing.html
+        else if(id==1)
+            include ../../selfproject/effect_of_direction_entry.html
+        else if(id==2)
+            include ../../selfproject/effect_of_scratch_card.html

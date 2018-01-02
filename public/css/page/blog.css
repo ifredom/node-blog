@@ -1142,3 +1142,11 @@ figure.effect-chico:hover p {
 		width: 100%;
 	}
 }
+/* 项目列表页 /project*/
+.project-list .project-list-item{
+    display: block;
+    height: 60px;
+}
+.project-list .project-list-item img{
+    height: 100%;
+}

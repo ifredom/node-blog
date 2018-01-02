@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>擦除效果</title>
+		<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				list-style-type: none;
+			}
+			
+			#box {
+				color: #FF0000;
+				font-size: 2rem;
+				text-align: center;
+				position: relative;
+			}
+			
+			#myCanvas {
+				position: absolute;
+				top: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			恭喜你中奖了！
+		</div>
+		<canvas id="myCanvas">您的浏览器不支持CANVAS</canvas>
+		<script>
+			var myCanvas = document.getElementById("myCanvas"),
+				box = document.getElementById("box"),
+				myPen = myCanvas.getContext("2d"),
+				sopportTouch = "ontouchstart" in document,
+				tapStart = sopportTouch ? "touchstart" : "mousedown",
+				tapMove = sopportTouch ? "touchmove" : "mousemove",
+				tapEnd = sopportTouch ? "touchend" : "mouseup",
+				x1, y1, x2, y2,
+				ww = window.innerWidth,
+				wh = window.innerHeight;
+			box.style.width = ww + "px";
+			box.style.height = wh + "px";
+			box.style.lineHeight = wh + "px";
+			myCanvas.setAttribute("width", ww + "px");
+			myCanvas.setAttribute("height", wh + "px");
+			myPen.fillStyle = "#000000"; //设置为黑色
+			myPen.fillRect(0, 0, myCanvas.width, myCanvas.height); //填充画布
+			myPen.save(); //保存
+			myPen.font = "5rem 黑体"; //设置字体
+			myPen.fillStyle = "#FFFFFF"; //重新设置画笔颜色
+			myPen.textAlign = "center"; //设置文字对齐方式
+			myPen.fillText("刮刮乐", ww / 2, wh / 2); //绘制文字到指定位置
+			myPen.font = "2rem 黑体"; //设置字体
+			myPen.fillText("手机也可以刮哦", ww / 2, wh / 2 + 150); //绘制文字到指定位置
+			myCanvas.addEventListener(tapStart, function(event) {
+				var e = event ? event : window.event;
+				x1 = sopportTouch ? e.touches[0].clientX - myCanvas.offsetLeft : e.clientX - myCanvas.offsetLeft;
+				y1 = sopportTouch ? e.touches[0].clientY - myCanvas.offsetTop : e.clientY - myCanvas.offsetTop;
+				myPen.globalCompositeOperation = "destination-out"; //叠加方式
+				myPen.beginPath(); //新建或重置一条路径
+				myPen.arc(x1, y1, 20, 0 * Math.PI, 2 * Math.PI); //在起笔处画一个圆
+				myPen.fill(); //填充圆
+				//myPen.restore(); //返回之前保存过的路径状态和属性
+				myPen.beginPath(); //新建或重置一条路径
+				myPen.lineCap = "round"; //线条结束端为圆
+				myPen.lineJoin = "round"; //线条拐角处为圆
+				myPen.lineWidth = 40; //线宽10
+				myPen.save() //保存
+				myCanvas.addEventListener(tapMove, penMove);
+			});
+
+			function penMove(event) {
+				var e = event ? event : window.event;
+				x2 = sopportTouch ? e.touches[0].clientX - myCanvas.offsetLeft : e.clientX - myCanvas.offsetLeft;
+				y2 = sopportTouch ? e.touches[0].clientY - myCanvas.offsetTop : e.clientY - myCanvas.offsetTop;
+				myPen.save(); //保存
+				myPen.moveTo(x1, y1); //提笔到指定点
+				myPen.lineTo(x2, y2); //用笔画到指定点
+				myPen.stroke(); //绘制刚才画的路径
+				//myPen.restore();//返回之前保存过的路径状态和属性
+				x1 = x2;
+				y1 = y2;
+			};
+			document.ontouchmove = function(e){
+				e.preventDefault();
+			};
+			myCanvas.addEventListener(tapEnd, function() {
+				myCanvas.removeEventListener(tapMove, penMove);
+			});
+		</script>
+	</body>
+
+</html>

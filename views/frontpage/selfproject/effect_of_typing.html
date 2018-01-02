@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta content="telephone=no" name="format-detection" />
+	<meta content="email=no" name="format-detection" />
+	<title>快乐小程序之打字效果</title>
+
+ 	<style>
+ 	.x{width:60%;margin:20px auto;background-color: #ddd;border:1px;padding: 20px;}
+ 	.wordregion{margin-top: 10px;background-color: #ddd;border:1px;padding: 20px;background-color: #eee;}
+    .wordregion{display:none;width:40em;line-height:1.6;color:#333;border:1px solid #CCC;padding:1em 3em;margin:5px auto;}
+    .wordregion:after{content:"|";animation:flash .6s steps(2,start) infinite;-webkit-animation:flash .6s steps(2,start) infinite;}
+    .wordregion.gameover:after{display:none;}
+    @keyframes flash{
+       0%{visibility:visible;}
+       100%{visibility:hidden;}
+    }
+    @-webkit-keyframes flash{
+       0%{visibility:visible;}
+       100%{visibility:hidden;}
+    }
+  </style>
+
+</head>
+<body>
+<div class="x">
+
+	<div class="wordregion">
+	    你见，或者不见我<br />
+	    &emsp;我就在那里<br /><br />
+
+		你念，或者不念我<br />
+	    &emsp;情就在那里<br /><br />
+
+		你爱，或者不爱我<br />
+	    &emsp;爱就在那里<br /><br />
+
+		你跟，或者不跟我<br />
+	    &emsp;我的手就在你手里<br /><br />
+
+		不舍不弃<br />
+	    &emsp;来我的怀里<br /><br />
+
+		或者<br />
+		&emsp;让我住进你的心里<br /><br />
+
+		默然<br />
+		相爱<br /><br />
+
+		寂静<br />
+		欢喜<br /><br />
+	</div>
+
+</div>
+
+	<script type="text/javascript">
+		(function(){
+			var wordregion = document.querySelector(".wordregion"),
+			code = wordregion.innerHTML, // 显示的内容
+			pos = 0,  // 字数
+			len = code.length;
+			wordregion.innerHTML = "";
+			wordregion.style.display = 'block';
+
+			function writeword(){
+				pos++;
+				if(pos<len){
+					switch(code.charAt(pos)){
+						case "<":
+							pos = code.indexOf(">",pos);
+							break;
+						case "&":
+							pos = code.indexOf(";",pos);
+							break;
+					}
+					wordregion.innerHTML = code.substring(0,pos);
+					setTimeout(writeword,100);
+				}else{
+					wordregion.addList.add("gameover");
+				}
+			}
+			writeword();
+
+		})();
+	</script>
+</body>
+</html>

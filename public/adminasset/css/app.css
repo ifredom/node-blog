@@ -5,6 +5,9 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
+.home-content .row{
+    margin: 1rem 0;
+}
 /* 发布文章页面 /article/add */
 #publish-article .input-group{
     margin: 1rem 0;

@@ -1,44 +1,46 @@
-<form class="form-horizontal" id="publish-article" role="search">
 
-    //- <label for="basic-url">标题</label>
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">标题</span>
-        <input type="text" class="form-control" id="publish-title" name="title" aria-describedby="basic-addon3">
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon2">正文</span>
-        <textarea class="form-control" id="publish-text" rows="3" name="maintext"></textarea>
-    </div>
-    <div class="input-group">
-        <label for="publish-picture">选择图片</label>
-        <input type="file" id="publish-picture" name="picture">
-    </div>
-    <div class="input-group">
-        <input type="submit" class="btn btn-primary submit">
-    </div>
-</form>
+//- form(class="form-horizontal" id="publish-article" role="search")
+form(class="form-horizontal" id="publish-article" role="search" onsubmit="return false")
+    .input-group
+        span(class="input-group-addon" id="basic-addon1") 标题
+        input(type="text" class="form-control" id="publish-title" name="title" aria-describedby="basic-addon3")
+    .input-group
+        span(class="input-group-addon" id="basic-addon2") 正文
+        textarea(class="form-control" id="publish-text" rows="3" name="maintext")
+    .input-group
+        label(for="publish-picture") 选择图片
+        input(type="file" id="publish-picture" name="picture")
+    .input-group
+        input(type="submit", class="btn btn-primary submit")
 script.
     $(function(){
         var title = $('#publish-title')
         var text = $('#publish-text')
-        var picture = $('#publish-picture')
         var submit = $('.submit')
-        console.log(title.val())
+        var picture = ''
+        $('#publish-picture').change(function(e){
+            picture = e // e就是你获取的file对象
+        })
         submit.click(function(){
-            console.log("提交")
+            if(title.val()==''){
+                alert('标题不能为空')
+                return
+            }else if(text.val()==''||text.val().length<5){
+                alert('正文内容不能为少于5个字')
+                return
+            }
             $.ajax({
                 url:'/admin/article/add',
                 type:'post',
                 data:{
-                    title:title.val(),
-                    text:text.val(),
-                    picture:picture.val()
+                    title: title.val(),
+                    textContent: text.val()
                 },
-                dataType:'json',
+                dataType:'json'
             }).done(function(ret){
-
-                console.log(ret)
-                console.log("返回值")
+                alert(JSON.stringify(ret))
+                location.replace('http://localhost:3004/admin')
             })
         })
+
     })

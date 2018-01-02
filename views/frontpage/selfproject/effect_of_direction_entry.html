@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>direction</title>
+
+	<script type="text/javascript" src="/javascript/lib/jquery.1.11.3.min.js"></script>
+
+	<style type="text/css">
+	*{margin:0;padding: 0;}
+
+	    #dirBox{width: 300px;height: 500px;border:1px solid #999;margin: 200px auto;position:relative;zoom:1;overflow: hidden;}
+    .showbox{height: 500px;background-color: orange;text-align: center;line-height: 500px;}
+    .hiddenbox{position: absolute;left: -200px;top: -500px;width:300px;height: 500px;background-color: red;text-align: center;line-height: 500px;}
+
+	</style>
+
+</head>
+<body>
+
+	<div id="dirBox">
+        <div class="showbox">
+            #box1
+        </div>
+        <div class="hiddenbox">
+            #box2
+        </div>
+    </div>
+	<script type="text/javascript">
+	$(function(){
+		var $dir = $('#dirBox');
+		var status;
+
+		$dir.on('mouseenter mouseleave',function(e){
+
+			var w = $(this).width(),
+				h = $(this).height();
+
+		    //进入点的坐标（x,y),以长方形中点为原点（0,0）
+		    var x = (e.pageX-this.offsetLeft-(w/2))*(w>h?(h/w):1),
+			    y = (e.pageY-this.offsetTop-(h/2))*(h>w?(w/h):1);
+		    // 进入的方向，值为（0,1,2,3-->上右下左）
+			var direction = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180)/ 90) + 3) % 4,
+				status = e.type,
+				pos = [{left:0,top:-h},{left:w,top:0},{left:0,top:h},{left:-w,top:0}];
+			if( status == 'mouseenter'){
+				$('.hiddenbox').css(pos[direction]).stop(true,true).animate({
+					left:0,
+					top:0
+				},200);
+
+			}else{
+				$('.hiddenbox').stop(true,true).animate(pos[direction],200);
+			}
+
+		});
+
+	});
+
+	</script>
+</body>
+</html>

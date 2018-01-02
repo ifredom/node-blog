@@ -1,14 +1,16 @@
-var sha1 = require('sha1')
 var express = require('express')
-var formidable = require('formidable')
+var moment = require('moment')
 var router = express.Router()
-
+var articleModel = require('../models/article/article')
 /* GET /admin. */
 router.get('/', (req, res, next) => {
-  res.render('adminpage/page/home/home', {
-    title: '管理后台首页'
+  console.log('admin')
+  articleModel.find().limit(6).exec().then(function (article) {
+    console.log(article)
+    res.render('adminpage/page/home/home', {
+      article: article
+    });
   })
-  res.end()
 })
 /* GET /admin/article/add. */
 router.get('/article/add', (req, res, next) => {
@@ -18,11 +20,33 @@ router.get('/article/add', (req, res, next) => {
   res.end()
 })
 
-router.post('/article/add', (req, res, next) => {
-  console.log(req.body)
-  res.json({
-    statusCode: 200,
-    msg: '添加成功'
-  }).end()
+// 分页查询文章列表
+router.post('/', (req, res, next) => {
+  var limit = parseInt(req.body.limit, 10)
+  var offset = parseInt(req.body.offset, 10)
+
+  articleModel.find().skip(offset).limit(limit).exec().then(function (article) {
+    console.log(article)
+    res.render('adminpage/page/home/home', {
+      article: article
+    })
+  })
 })
+
+// 发布文章
+router.post('/article/add', (req, res, next) => {
+  var query = req.body
+  var article = new articleModel(query)
+  article.save(function(err){
+    if(err){
+      console.log(err)
+    }
+    res.send({
+      statusCode: 200,
+      msg: '发布成功',
+      time: moment().format('YYYY-MM-DD')
+    })
+  })
+})
+
 module.exports = router
