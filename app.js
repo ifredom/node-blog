@@ -1,6 +1,11 @@
-require("babel-core/register") //使用es6语法
-require('./mongodb/mongodb.js') // 连接Mongdb数据库服务
-// require('./mysql/mysql.js') // 连接mysql数据库服务
+// 使用es6语法
+// babel-register模块改写require命令，为它加上一个钩子。此后，每当使用require加载.js、.jsx、.es和.es6后缀名的文件，就会先用Babel进行转码。
+// 由于它是实时转码，所以只适合在开发环境使用。
+require("babel-core/register")
+// 连接Mongdb数据库服务
+require('./mongodb/mongodb.js')
+// 连接mysql数据库服务
+// require('./mysql/mysql.js')
 
 var express = require('express')
 var path = require('path')
