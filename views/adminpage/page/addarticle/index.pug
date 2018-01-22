@@ -1,5 +1,11 @@
 extends ../../components/layout
 
+block append scripts
+  link(rel="stylesheet", href='/lib/quilljs/quill.snow.css')
+  script(type="text/javascript", src='/lib/quilljs/katex.0.7.1.min.js')
+  script(type="text/javascript", src='/lib/quilljs/highlight.min.js')
+  script(type="text/javascript", src='/lib/quilljs/quill.js')
+
 block content
   .container-fluid.page.home
     .row

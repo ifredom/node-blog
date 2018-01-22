@@ -28,7 +28,7 @@ var app = express()
 // *设置为pug
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
-// *设置为html或者ejs，ejs太老过时了,html无法复用模板
+// *设置为html或者ejs，ejs太老过时了,复用模板功能有限
 // app.set('view engine', 'html');
 // app.engine('.html', require('ejs').__express);
 

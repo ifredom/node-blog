@@ -1,40 +1,106 @@
 
 //- form(class="form-horizontal" id="publish-article" role="search")
-form(class="form-horizontal" id="publish-article" role="search" onsubmit="return false")
-    .input-group
+form(class="row form-horizontal" id="publish-article" role="search" onsubmit="return false")
+    .col-lg-4.col-md-6.col-sm-4.input-group
         span(class="input-group-addon" id="basic-addon1") 标题
         input(type="text" class="form-control" id="publish-title" name="title" aria-describedby="basic-addon3")
     .input-group
-        span(class="input-group-addon" id="basic-addon2") 正文
-        textarea(class="form-control" id="publish-text" rows="3" name="maintext")
+        <div id="standalone-container">
+            <div id="toolbar-container">
+                <span class="ql-formats">
+                    <select class="ql-font"></select>
+                    <select class="ql-size"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                    <select class="ql-color"></select>
+                    <select class="ql-background"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-script" value="sub"></button>
+                    <button class="ql-script" value="super"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-header" value="1"></button>
+                    <button class="ql-header" value="2"></button>
+                    <button class="ql-blockquote"></button>
+                    <button class="ql-code-block"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                    <button class="ql-indent" value="-1"></button>
+                    <button class="ql-indent" value="+1"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-direction" value="rtl"></button>
+                    <select class="ql-align"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-link"></button>
+                    <button class="ql-image"></button>
+                    <button class="ql-video"></button>
+                    <button class="ql-formula"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-clean"></button>
+                </span>
+            </div>
+            <div id="editor-container"></div>
+        </div>
     .input-group
         label(for="publish-picture") 选择图片
         input(type="file" id="publish-picture" name="picture")
     .input-group
         input(type="submit", class="btn btn-primary submit")
+
 script.
+
     $(function(){
         var title = $('#publish-title')
-        var text = $('#publish-text')
         var submit = $('.submit')
         var picture = ''
+
+        // 富文本初始化
+        var quill = new Quill('#editor-container', {
+            modules: {
+            formula: true,
+            syntax: true,
+            toolbar: '#toolbar-container'
+            },
+            placeholder: '编辑正文...',
+            theme: 'snow'
+        });
+
+
+        // 上传图片，提交
         $('#publish-picture').change(function(e){
             picture = e // e就是你获取的file对象
         })
         submit.click(function(){
+            var quillContent = quill.getContents();
+            var quillLength = quill.getLength();
+            var text = quillContent.ops[0].insert
+            console.log(quillContent)
             if(title.val()==''){
                 alert('标题不能为空')
                 return
-            }else if(text.val()==''||text.val().length<5){
+            }else if(text==''||text.length<5){
                 alert('正文内容不能为少于5个字')
                 return
             }
+
             $.ajax({
                 url:'/admin/article/add',
                 type:'post',
                 data:{
                     title: title.val(),
-                    textContent: text.val()
+                    textContent: text
                 },
                 dataType:'json'
             }).done(function(ret){
@@ -43,4 +109,5 @@ script.
             })
         })
 
-    })
+
+    });

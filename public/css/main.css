@@ -434,7 +434,17 @@ figure.effect-lily:hover p {
   background-color: #f5f5d5;
 }
 .comment .title{
+  display: inline-block;
+  width: 9rem;
   font-size: 1.8rem;
+  vertical-align:top;
+}
+.comment textarea{
+  background-color: #FFDAB9;
+}
+.comment input{
+  background-color: #FFDAB9;
+  border: none;
 }
 
 .comment .comment-email,
