@@ -26,9 +26,10 @@
     /*使用自定义动画使气泡渐现、上升和翻滚；*/
     animation: square 15s infinite;
     transition-timing-function: linear;
-    /* 分别设置每个气泡不同的位置、大小、透明度和速度，以显得有层次感；*/
-}
+    border-radius: 50%;
 
+}
+/* 分别设置每个气泡不同的位置、大小、透明度和速度，以显得有层次感；*/
 .bg-bubbles li:nth-child(1) {
     left: 10%;
 }
