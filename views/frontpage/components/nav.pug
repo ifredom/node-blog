@@ -1,3 +1,6 @@
+block append scripts
+  link(rel="stylesheet" href='/css/components/css3bg.css')
+
 .row#logo
   .advator
     img(src="/image/logo.jpg", alt="")
@@ -15,7 +18,7 @@
   .tab.ta-button.ta-button-cross
     a(href="/admin") 管理后台
   .tab.ta-button.ta-button-cross
-    a(href="/project") 特效日常
+    a(class="ta-bold",href="/project") 特效日常
 ul.row.about-me
   li
     div(href="https://github.com/ifredom" class="title")
@@ -25,3 +28,15 @@ ul.row.about-me
       img(src="/image/email.png", alt="")
   div.time
     span #{moment().format('YYYY-DD-MM A')}
+
+ul.bg-bubbles
+  li
+  li
+  li
+  li
+  li
+  li
+  li
+  li
+  li
+  li
