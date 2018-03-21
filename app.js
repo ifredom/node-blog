@@ -1,14 +1,9 @@
-// 使用es6语法
-// babel-register模块改写require命令，为它加上一个钩子。此后，每当使用require加载.js、.jsx、.es和.es6后缀名的文件，就会先用Babel进行转码。
-// 由于它是实时转码，所以只适合在开发环境使用。
-require('babel-core/register');
 // 连接Mongdb数据库服务
 require('./mongodb/mongodb.js');
 // 连接mysql数据库服务
 // require('./mysql/mysql.js')
 
 var express = require('express');
-
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -20,11 +15,28 @@ var MongoStore = require('connect-mongo')(session); // 访问服务器时，保�
 var winston = require('winston'); // 输出日志
 var expressWinston = require('express-winston'); // 输出日志，依赖于winston包
 var merge = require('webpack-merge'); // 对象合并工具
+import history from 'connect-history-api-fallback';
 
 var routes = require('./routes');
 var config = require('./config');
 var app = express();
 
+
+app.all('*', (req, res, next) => {
+	res.header("Access-Control-Allow-Origin", req.headers.origin || '*');
+	res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+	res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  	res.header("Access-Control-Allow-Credentials", true); //可以带cookies
+	res.header("X-Powered-By", '3.2.1')
+	if (req.method == 'OPTIONS') {
+	  	res.send(200);
+	} else {
+	    next();
+	}
+});
+
+// 设置端口
+app.set('port', config.port);
 // 视图引擎设置
 // *设置为pug
 app.set('views', path.join(__dirname, 'views'));
@@ -38,10 +50,13 @@ app.use(logger('dev')); // 加载日志中间件。
 app.use(bodyParser.json()); // 加载解析json的中间件。
 app.use(bodyParser.urlencoded({ extended: false })); // 加载解析urlencoded请求体的中间件。
 app.use(cookieParser()); // 加载解析cookei的中间件。
-
 // 设置静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/dist', express.static(resolve('./dist'))) // vue单页项目时设置静态文件目录，直接加载buld生成的目录，一般为dist
+
+// 设置模板全局常量
+app.locals.moment = require('moment');
+app.locals.blog = merge({}, config.blog);
 
 // session 中间件
 app.use(
@@ -60,11 +75,7 @@ app.use(
     })
 );
 
-// 设置模板全局常量
-app.locals.moment = require('moment');
-app.locals.blog = merge({}, config.blog);
-
-// 输出正常请求的日志
+// 记录正常请求的日志
 if (app.get('env') !== 'development') {
     app.use(
         expressWinston.logger({
@@ -80,10 +91,8 @@ if (app.get('env') !== 'development') {
         })
     );
 }
-// 路由
-routes(app);
 
-// 错误请求的日志
+// 记录错误请求的日志
 app.use(
     expressWinston.errorLogger({
         transports: [
@@ -107,4 +116,8 @@ app.use(function(req, res) {
     });
 });
 
+
+// 路由
+routes(app);
+app.use(history());
 module.exports = app;

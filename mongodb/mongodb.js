@@ -1,18 +1,13 @@
 'use strict';
 var mongoose = require('mongoose');
 var config = require('../config');
-mongoose.connect(config.mongodb, {
-    useMongoClient: true
-});
+mongoose.connect(config.mongodb);
 mongoose.Promise = global.Promise;
 
 var db = mongoose.connection;
 
 db.once('open', function() {
     console.log('数据库链接成功了！\n');
-    console.log(
-        `Your application is running here: http://localhost:${config.port}` + '\n'
-    );
 });
 
 db.on('error', function(error) {
