@@ -32,5 +32,7 @@ function onError(error) {
 }
 function onListening() {
     var addr = server.address();
-    console.log(`Your application is running here: http://localhost:${addr.port}\n`);
+    console.log(
+        `Your application is running here: http://localhost:${addr.port}\n`
+    );
 }
