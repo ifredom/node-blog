@@ -28,7 +28,7 @@ npm run dev
 
 ### 开发环境
 
-1. **node v8.10.0**
+1. **node v6.12.0**
 
 2. cnpm v5.1.1
 
