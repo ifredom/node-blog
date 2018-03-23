@@ -1,4 +1,11 @@
 /*
+* font-style
+* @note 字体加粗
+*/
+.ta-bold{
+    font-weight:bold;
+}
+/*
 * button-base-style
 */
 .ta-button{

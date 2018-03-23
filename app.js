@@ -1,39 +1,41 @@
-// 使用es6语法
-// babel-register模块改写require命令，为它加上一个钩子。此后，每当使用require加载.js、.jsx、.es和.es6后缀名的文件，就会先用Babel进行转码。
-// 由于它是实时转码，所以只适合在开发环境使用。
-require('babel-core/register');
-// 连接Mongdb数据库服务
-require('./mongodb/mongodb.js');
-// 连接mysql数据库服务
-// require('./mysql/mysql.js')
-
-var express = require('express');
+require('./mongodb/mongodb.js'); // 连接Mongdb数据库服务.若本地未安装mongDB以及未开启mongDB服务，注释掉此行即可。
+// require('./mysql/mysql.js'); // 连接mysql数据库服务.只能选择一个
 
 var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-
-var MongoStore = require('connect-mongo')(session); // 访问服务器时，保存或更新session到数据库mongodb
-var winston = require('winston'); // 输出日志
+var express = require('express');
+var favicon = require('serve-favicon'); // 设置小图标
+var logger = require('morgan'); // log调试显示工具
+var cookieParser = require('cookie-parser'); // 解析 cookie
+var bodyParser = require('body-parser'); // 解析http请求体
+var session = require('express-session');  // 记录session中间件
+var connectMongo = require('connect-mongo'); // 访问服务器时，更新session到数据库
+var winston = require('winston'); // 记录日志
 var expressWinston = require('express-winston'); // 输出日志，依赖于winston包
 var merge = require('webpack-merge'); // 对象合并工具
+var history = require('connect-history-api-fallback'); // Html5 history库
 
-var routes = require('./routes');
-var config = require('./config');
+var config = require('./config'); // 导入配置对象
+var routes = require('./routes'); // 导入router层控制函数
+
 var app = express();
 
-app.set('views', path.join(__dirname, 'views')); // 视图引擎设置
-app.set('view engine', 'pug'); // *视图引擎设置为pug
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev')); // 加载日志中间件。
-app.use(bodyParser.json()); // 加载解析json的中间件。
-app.use(bodyParser.urlencoded({ extended: false })); // 加载解析urlencoded请求体的中间件。
-app.use(cookieParser()); // 加载解析cookei的中间件。
-app.use(express.static(path.join(__dirname, 'public'))); // 设置静态文件目录
+app.all('*', (req, res, next) => {
+    // 设置跨域
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Credentials', true); //可以带cookies
+    res.header('X-Powered-By', '3.2.1');
+    if (req.method == 'OPTIONS') {
+        res.send(200);
+    } else {
+        next();
+    }
+});
 
+var MongoStore = connectMongo(session);
+
+app.use(cookieParser()); // 加载解析cookei的中间件。
 // session 中间件
 app.use(
     session({
@@ -51,11 +53,24 @@ app.use(
     })
 );
 
+// 路由
+routes(app);
+
+app.set('port', config.port); // 设置端口
+app.set('views', path.join(__dirname, 'views')); // 设置
+app.set('view engine', 'pug'); // 视图引擎设置为pug
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico'))); //  设置小图标
+app.use(logger('dev')); // 加载日志中间件。
+app.use(bodyParser.json()); // 加载解析json的中间件。
+app.use(bodyParser.urlencoded({ extended: false })); // 加载解析urlencoded请求体的中间件。
+app.use(express.static(path.join(__dirname, 'public'))); // 设置静态文件目录
+
 // 设置模板全局常量
 app.locals.moment = require('moment');
 app.locals.blog = merge({}, config.blog);
 
-// 输出正常请求的日志
+// 记录正常请求的日志
+// env参数，是由nodemon.json中进行设置的
 if (app.get('env') !== 'development') {
     app.use(
         expressWinston.logger({
@@ -71,10 +86,7 @@ if (app.get('env') !== 'development') {
         })
     );
 }
-// 路由
-routes(app);
-
-// 错误请求的日志
+// 记录错误请求的日志
 app.use(
     expressWinston.errorLogger({
         transports: [
@@ -97,5 +109,7 @@ app.use(function(req, res) {
         error: err
     });
 });
+
+app.use(history());
 
 module.exports = app;

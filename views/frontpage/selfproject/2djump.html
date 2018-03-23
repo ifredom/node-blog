@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jump</title>
+
+</head>
+
+<body>
+    <canvas id="stage" width="600" height="400"></canvas>
+    <script>
+        var canvas = document.getElementById('stage');
+        var context = canvas.getContext('2d');
+        Math.randomRange = function (min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+        var player = {
+            x: 0,
+            y: 300,
+            width: 30,
+            jumping: false, //标识是否跳跃中
+            power: 0, //标识蓄力程度，决定跳多远
+            speedY: 10 //标识Y轴上的速度，模拟重力加速度
+        }
+        var gameover = false;
+        var cameraMoving = false; //镜头是否移动中
+        var timerPowerUp; //蓄力操作用的计时器
+        var platforms = []; //存储所有生成的平台
+        //初始化平台
+        platforms.push({
+            x: 0,
+            width: 100
+        }, {
+            x: 200,
+            width: 100
+        });
+        var lastPlatform = platforms[platforms.length - 1]; //最新生成的平台
+        var currentPlatform = platforms[0]; //当前落脚的平台
+        var drawPlayer = function () {
+            context.fillStyle = "blue";
+            context.save();
+            context.fillRect(player.x, player.y, player.width, player.width);
+            context.restore();
+        }
+        var drawPlatform = function () {
+            context.fillStyle = "#A3A3A3";
+            context.save();
+            platforms.forEach(function (platform) {
+                context.fillRect(platform.x, 300 + player.width, platform.width, 300);
+            });
+            context.restore();
+        }
+        var drawTextFailed = function () {
+            if (gameover) {
+                context.fillStyle = "#000";
+                context.save();
+                context.font = "normal 30px sans-serif";
+                context.textBaseline = 'top';
+                var text = "FAILED";
+                context.fillText(text, canvas.clientWidth / 2 - text.length * 30 / 2, 300);
+                context.restore();
+            }
+        }
+        //玩家跳跃中
+        var playerJumping = function () {
+            if (player.jumping) {
+                player.y -= player.speedY;
+                player.speedY -= 0.7;
+                player.x += player.power;
+                if (player.y >= 300) {
+                    player.jumping = false;
+                    player.y = 300;
+                    player.power = 0;
+                    if (!iscurrentplatform()) {
+                        if (isfailed()) {
+                            gameover = true;
+                        } else {
+                            currentPlatform = lastPlatform;
+                            generateNextPlatform();
+                            cameraMoving = true;
+                        }
+                    }
+                }
+            }
+        }
+        //生成下一个平台
+        var generateNextPlatform = function () {
+            var x = Math.randomRange(lastPlatform.x + 100, 500);
+            var width = Math.randomRange(player.width, 100);
+            lastPlatform = {
+                x: x,
+                width: width
+            }
+            platforms.push(lastPlatform);
+        }
+        //判断玩家位置是否在当前平台
+        var iscurrentplatform = function () {
+            return player.x > currentPlatform.x - player.width && player.x < currentPlatform.x + currentPlatform.width;
+        }
+        //判断是否失败
+        var isfailed = function () {
+            return player.x <= (lastPlatform.x - player.width) || player.x >= (lastPlatform.x + lastPlatform.width);
+        }
+        //移动镜头(场景整体移动)
+        var moveCamera = function () {
+            if (cameraMoving) {
+                player.x -= 10;
+                platforms.forEach(function (platform) {
+                    platform.x -= 10;
+                });
+                if (player.x <= 0 || currentPlatform.x <= 0) {
+                    cameraMoving = false;
+                    if (player.x < 0) {
+                        player.x = 0;
+                    } else if (currentPlatform.x < 0) {
+                        currentPlatform.x = 0;
+                    }
+                }
+            }
+        }
+        //蓄力中
+        var PowerUping = function () {
+            player.power += 1;
+        }
+        //开始蓄力
+        var PowerUp = function () {
+            if (!gameover && !player.jumping) {
+                timerPowerUp = setInterval(PowerUping, 100);
+            }
+        }
+        //停止蓄力
+        var PowerUpStop = function () {
+            if (!gameover && !player.jumping) {
+                clearInterval(timerPowerUp);
+                player.jumping = true;
+                player.speedY = 10;
+            }
+        }
+        //帧刷新时执行的其他操作
+        var withFrameUpdate = function () {
+            playerJumping();
+            moveCamera();
+        }
+        //帧绘制
+        var drawFrame = function () {
+            window.requestAnimationFrame(drawFrame, canvas);
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            drawPlayer();
+            drawPlatform();
+            drawTextFailed();
+            withFrameUpdate();
+        }
+        document.addEventListener("mousedown", PowerUp);
+        document.addEventListener("mouseup", PowerUpStop);
+        drawFrame();
+    </script>
+</body>
+
+</html>
