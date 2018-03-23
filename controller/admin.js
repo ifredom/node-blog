@@ -4,9 +4,7 @@ var router = express.Router()
 var articleModel = require('../models/article/article')
 /* GET /admin. */
 router.get('/', (req, res, next) => {
-  console.log('admin')
   articleModel.find().limit(6).exec().then(function (article) {
-    console.log(article)
     res.render('adminpage/page/home/home', {
       article: article
     });
@@ -26,7 +24,6 @@ router.post('/', (req, res, next) => {
   var offset = parseInt(req.body.offset, 10)
 
   articleModel.find().skip(offset).limit(limit).exec().then(function (article) {
-    console.log(article)
     res.render('adminpage/page/home/home', {
       article: article
     })

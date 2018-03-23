@@ -4,3 +4,4 @@ node_modules
 logs
 dist/
 npm-debug.log
+logs/

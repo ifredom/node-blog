@@ -2,19 +2,19 @@ require('./mongodb/mongodb.js'); // 连接Mongdb数据库服务.若本地未安�
 // require('./mysql/mysql.js'); // 连接mysql数据库服务.只能选择一个
 
 var path = require('path');
+var fs = require('fs');
 var express = require('express');
 var favicon = require('serve-favicon'); // 设置小图标
-var logger = require('morgan'); // log调试显示工具
 var cookieParser = require('cookie-parser'); // 解析 cookie
 var bodyParser = require('body-parser'); // 解析http请求体
-var session = require('express-session');  // 记录session中间件
+var session = require('express-session'); // 记录session中间件
 var connectMongo = require('connect-mongo'); // 访问服务器时，更新session到数据库
 var winston = require('winston'); // 记录日志
 var expressWinston = require('express-winston'); // 输出日志，依赖于winston包
 var merge = require('webpack-merge'); // 对象合并工具
 var history = require('connect-history-api-fallback'); // Html5 history库
-
-var config = require('./config'); // 导入配置对象
+var utils = require('./middlewares/utils'); // 导入工具函数
+var config = require('./config'); // 导入配置
 var routes = require('./routes'); // 导入router层控制函数
 
 var app = express();
@@ -53,24 +53,22 @@ app.use(
     })
 );
 
-// 路由
-routes(app);
-
 app.set('port', config.port); // 设置端口
 app.set('views', path.join(__dirname, 'views')); // 设置
 app.set('view engine', 'pug'); // 视图引擎设置为pug
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico'))); //  设置小图标
-app.use(logger('dev')); // 加载日志中间件。
-app.use(bodyParser.json()); // 加载解析json的中间件。
-app.use(bodyParser.urlencoded({ extended: false })); // 加载解析urlencoded请求体的中间件。
+app.use(bodyParser.json()); // 加载解析json的中间件。必须在route加载前调用
+app.use(bodyParser.urlencoded({ extended: true })); // 加载解析urlencoded请求体的中间件, application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, 'public'))); // 设置静态文件目录
 
 // 设置模板全局常量
 app.locals.moment = require('moment');
 app.locals.blog = merge({}, config.blog);
 
-// 记录正常请求的日志
-// env参数，是由nodemon.json中进行设置的
+// 路由
+routes(app);
+
+// 记录正常请求的日志. env参数是由nodemon.json中进行设置
 if (app.get('env') !== 'development') {
     app.use(
         expressWinston.logger({
@@ -103,7 +101,7 @@ app.use(
 
 // 404 page
 app.use(function(req, res) {
-    const err = new Error('Not Found');
+    const err = new Error('404 ! Page Not Found.');
     res.status(404).render('frontpage/404', {
         message: err.message,
         error: err

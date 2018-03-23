@@ -12,8 +12,6 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res) {
     var name = req.body.name
     var password = req.body.password
-    console.log(name)
-    console.log(password)
     // 校验参数
     try {
         if (!name || !password) {

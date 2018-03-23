@@ -19,7 +19,6 @@ router.get('/', (req, res, next) => {
 });
 router.post('/', (req, res, next) => {
     var query = req.body;
-    console.log(query)
     var movie = new movieModel(query)
     movie.save(function(err) {
         if (err) {
