@@ -12,7 +12,6 @@
   "scripts": {
     "dev": "nodemon --inspect ./bin/www",
     "start": "node --harmony ./bin/www ",
-    "webpack": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "test": "node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
   },
   "dependencies": {
