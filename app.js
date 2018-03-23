@@ -25,23 +25,14 @@ var routes = require('./routes');
 var config = require('./config');
 var app = express();
 
-// 视图引擎设置
-// *设置为pug
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-// *设置为html或者ejs，ejs太老过时了,复用模板功能有限
-// app.set('view engine', 'html');
-// app.engine('.html', require('ejs').__express);
-
+app.set('views', path.join(__dirname, 'views')); // 视图引擎设置
+app.set('view engine', 'pug'); // *视图引擎设置为pug
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev')); // 加载日志中间件。
 app.use(bodyParser.json()); // 加载解析json的中间件。
 app.use(bodyParser.urlencoded({ extended: false })); // 加载解析urlencoded请求体的中间件。
 app.use(cookieParser()); // 加载解析cookei的中间件。
-
-// 设置静态文件目录
-app.use(express.static(path.join(__dirname, 'public')));
-// app.use('/dist', express.static(resolve('./dist'))) // vue单页项目时设置静态文件目录，直接加载buld生成的目录，一般为dist
+app.use(express.static(path.join(__dirname, 'public'))); // 设置静态文件目录
 
 // session 中间件
 app.use(
