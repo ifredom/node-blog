@@ -5,8 +5,9 @@ var Schema = mongoose.Schema
 
 var articleSchema = new Schema({
     title: String, // 标题
-    textContent: String, // 文本内容
-    comments: Array,
+    text: String, // 文本内容
+    readnum: Number, // 阅读量
+    comments: Array, // 评论
     meta: {
         createAt: {
             type: Date,

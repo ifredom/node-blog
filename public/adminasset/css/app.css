@@ -12,3 +12,12 @@
 #publish-article .input-group{
     margin: 1rem 0;
 }
+
+
+.navbar-inverse.bg-white{
+    background-color: #fff;
+    border-color:transparent;
+}
+.navbar-inverse.bg-white .panel{
+    margin-bottom: 10px;
+}

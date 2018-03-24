@@ -1,0 +1,19 @@
+.container
+  form(class="row" method="post")
+    - title = article.title
+    - createTime = createTime
+    - text = article.text
+    div
+      labele 标题:
+      span #{title}
+    div
+      labele 时间:
+      span #{createTime}
+    div
+      labele 正文:
+      span #{text}
+
+
+
+
+

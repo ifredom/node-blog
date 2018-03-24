@@ -1,5 +1,4 @@
 module.exports = function(app) {
-
     app.get('/', function(req, res) {
         res.redirect('/blog');
     });
@@ -8,6 +7,7 @@ module.exports = function(app) {
     app.use('/register', require('../controller/register')); // 注册
     app.use('/blog', require('../controller/blog')); // 博客首页
     app.use('/movie', require('../controller/movie')); // 电影
+    app.use('/article', require('../controller/article')); // 文章
     app.use('/admin', require('../controller/admin')); // 管理后台
-    app.use('/project', require('../controller/project')); // 管理后台
+    app.use('/project', require('../controller/project')); // 作品展示
 };

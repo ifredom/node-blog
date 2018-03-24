@@ -9,22 +9,21 @@ block append scripts
       a(href="/login") 登录
     div.btn.reg
       a(href="/register") 注册
-.row.navlist
 
+.row.navlist
   .tab.ta-button.ta-button-cross
     a(href="/blog") 首页
   .tab.ta-button.ta-button-cross
-    a(href="/movie") 电影管理
-  .tab.ta-button.ta-button-cross
-    a(href="/admin") 管理后台
-  .tab.ta-button.ta-button-cross
     a(class="ta-bold",href="/project") 特效日常
+  .tab.ta-button.ta-button-cross
+    a(href="/article") 管理后台
+
 ul.row.about-me
   li
-    div(href="https://github.com/ifredom" class="title")
+    a(class="title" href="https://github.com/ifredom" target="_blank")
       img(src="/image/github.jpg", alt="")
   li
-    a(href="" class="title")
+    a(class="title" href="https://mail.163.com/" target="_blank")
       img(src="/image/email.png", alt="")
   div.time
     span #{moment().format('YYYY-DD-MM A')}

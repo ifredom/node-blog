@@ -1,6 +1,4 @@
-
-//- form(class="form-horizontal" id="publish-article" role="search")
-form(class="row form-horizontal" id="publish-article" role="search" onsubmit="return false")
+form(class="row form-horizontal" id="publish-article" onsubmit="return false")
     .col-lg-4.col-md-6.col-sm-4.input-group
         span(class="input-group-addon" id="basic-addon1") 标题
         input(type="text" class="form-control" id="publish-title" name="title" aria-describedby="basic-addon3")
@@ -55,12 +53,11 @@ form(class="row form-horizontal" id="publish-article" role="search" onsubmit="re
         </div>
     .input-group
         label(for="publish-picture") 选择图片
-        input(type="file" id="publish-picture" name="picture")
+        input(type="file" id="publish-picture")
     .input-group
         input(type="submit", class="btn btn-primary submit")
 
 script.
-
     $(function(){
         var title = $('#publish-title')
         var submit = $('.submit')
@@ -86,7 +83,7 @@ script.
             var quillContent = quill.getContents();
             var quillLength = quill.getLength();
             var text = quillContent.ops[0].insert
-            console.log(quillContent)
+
             if(title.val()==''){
                 alert('标题不能为空')
                 return
@@ -96,16 +93,16 @@ script.
             }
 
             $.ajax({
-                url:'/admin/article/add',
+                url:'/article/add',
                 type:'post',
                 data:{
                     title: title.val(),
-                    textContent: text
+                    text: text
                 },
                 dataType:'json'
             }).done(function(ret){
                 alert(JSON.stringify(ret))
-                location.replace('http://localhost:3004/admin')
+                location.replace('/article')
             })
         })
 

@@ -18,7 +18,7 @@ block content
       tbody.table-striped
         each item in movies
           - _id = item['_id']
-          - trClass = 'item-id-' + item['_id']
+          - trClass = 'item-' + item['_id']
           - lookItem = "/movie/" + item['_id']
           - updateItem = "/movie/update/" + item['_id']
           tr(class=trClass)
@@ -33,4 +33,28 @@ block content
               a(href=updateItem) 编辑
             td.text-center
               button(class="btn btn-danger remove",data-id=_id) 删除
-  script(src="/javascript/movie/movie.js")
+
+  script.
+    $(function(){
+      $('.table-striped .remove').click(function(e){
+          var target = $(e.target)
+          var id = target.data('id')
+          var tr = $('.item-' + id)
+
+          $.ajax({
+              type:'delete',
+              url:'/movie/list',
+              data:{
+                  id: id
+              }
+          })
+          .done(function(response){
+              console.log(response)
+              if (response.statuscode == 200){
+                  if(tr.length >0){
+                      tr.remove()
+                  }
+              }
+          })
+      })
+    })

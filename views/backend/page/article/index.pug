@@ -12,4 +12,10 @@ block content
       nav.col-lg-2.col-md-3.col-sm-3.home-nav
         include ../../components/nav
       section.col-lg-10.col-md-9.col-sm-9.home-content
-        include content
+
+        if baseUrl==='/'
+          include list
+        else if baseUrl=='/add'||baseUrl=='/update'
+          include add
+        else
+          include article

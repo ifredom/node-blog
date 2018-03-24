@@ -13,7 +13,7 @@ var moviesModel = require('../models/movies/movies')
  */
 router.get('/', function (req, res, next) {
     moviesModel.find({}).exec().then(function (movies) {
-        res.render('frontend/page/movie/movie', {
+        res.render('backend/page/movie/movie', {
             movies: movies
         });
     })
@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
  */
 router.get('/list', function (req, res, next) {
     moviesModel.find({}).exec().then(function (movies) {
-        res.render('frontend/page/movie/list', {
+        res.render('backend/page/movie/list', {
             title: '电影列表',
             movies: movies
         })
@@ -33,7 +33,7 @@ router.get('/list', function (req, res, next) {
  * url  GET /movie/add
  */
 router.get('/add', function (req, res, next) {
-    res.render('frontend/page/movie/addmovie', {
+    res.render('backend/page/movie/addmovie', {
         movies:{
             title: '机械风暴ifredom',
             doctor: '李安',
@@ -43,7 +43,6 @@ router.get('/add', function (req, res, next) {
             summary: '这一个快乐的电影，据说是...',
             flash: 'http://www.w3school.com.cn/example/html5/mov_bbb.mp4'
         }
-
     })
     res.end()
 });
@@ -57,7 +56,7 @@ router.get('/update/:id', function (req, res, next) {
             if (err) {
                 errorHandle(err)
             }
-            res.render('frontend/page/movie/addmovie', {
+            res.render('backend/page/movie/addmovie', {
                 id: id,
                 movies: movies
             })
@@ -74,7 +73,7 @@ router.get('/:id', function (req, res, next) {
         if (err) {
             errorHandle(err)
         }
-        res.render('frontend/page/movie/moviedetail', {
+        res.render('backend/page/movie/moviedetail', {
             title: '电影详情页',
             movies: movies
         })
@@ -98,10 +97,12 @@ router.post('/add', (req, res, next) => {
                 if (err) {
                     errorHandle(err)
                 }
+                console.log("添加成功")
                 res.redirect('/movie/' + id)
             })
         })
     }else{// 更新
+        console.log("更新")
         _movie = new moviesModel({
             title: movieObj.title,
             doctor: movieObj.doctor,

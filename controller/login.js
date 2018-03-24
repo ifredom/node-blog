@@ -4,12 +4,10 @@ var formidable = require('formidable');
 var router = express.Router();
 
 var adminModel = require('../models/admin/admin.js');
+
 /* GET /login. */
 router.get('/', (req, res, next) => {
-    res.render('frontend/login', {
-        title: 'Friend'
-    });
-    res.end();
+    res.render('frontend/login');
 });
 
 /* POST /login 用户登录*/

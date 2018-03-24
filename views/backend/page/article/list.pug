@@ -1,0 +1,54 @@
+extends ./../../components/layout
+
+block content
+  .container
+    header
+      h1.text-center  文章管理列表
+    table.table
+      thead
+        tr
+          th 文章标题
+          th 阅读量
+          th 评论量
+          th 发布时间
+          th.text-center 查看
+          th.text-center 删除
+      tbody.table-striped
+        each item in articles
+          - _id = item['_id']
+          - trClass = 'item-' + item['_id']
+          - lookItem = "/article/" + item['_id']
+          tr(class=trClass)
+            td #{item.title}
+            td #{item.readnum}
+            td #{item.comments.length}
+            td #{moment(item.meta.createAt).format('YYYY-DD-MM')}
+            td.text-center
+              a(href=lookItem) 查看
+            td.text-center
+              button(class="btn btn-danger remove",data-id=_id) 删除
+
+  script.
+    $(function(){
+      $('.table-striped .remove').click(function(e){
+          var target = $(e.target)
+          var id = target.data('id')
+          var tr = $('.item-' + id)
+
+          $.ajax({
+              type:'delete',
+              url:'/article/del',
+              data:{
+                  id: id
+              }
+          })
+          .done(function(response){
+              console.log(response)
+              if (response.statuscode == 200){
+                  if(tr.length >0){
+                      tr.remove()
+                  }
+              }
+          })
+      })
+    })

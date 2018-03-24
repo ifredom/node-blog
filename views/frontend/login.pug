@@ -2,9 +2,8 @@ extends components/layout.pug
 
 block content
   #loginpage.contianer
-    form(class="loginContent", method="post" action="/login")
-      //- - var title = title;
-      h1 #{title} 进来玩玩？
+    form(class="loginContent", method="post")
+      h1 进来玩玩？
       input(type="text", id="username", name="name", placeholder="用户名", value="ifredom")
       input(type="password", id="pwd", name="password", placeholder="密码", value="123456")
       input(id="signin", type="submit", value="登陆")
