@@ -5,7 +5,7 @@ var router = express.Router()
 
 
 router.get('/', (req, res, next) => {
-  res.render('adminpage/page/articleadd/add', {
+  res.render('backend/page/articleadd/add', {
     title: '管理后台首页'
   })
   res.end()

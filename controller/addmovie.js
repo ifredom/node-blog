@@ -6,7 +6,7 @@ var router = express.Router();
 var movieModel = require('../models/movies/movies');
 /* GET /index. */
 router.get('/', (req, res, next) => {
-    res.render('frontpage/addmovie', {
+    res.render('frontend/addmovie', {
         title: '机械风暴ifredom',
         doctor: '李安',
         country: '中国',

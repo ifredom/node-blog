@@ -4,7 +4,6 @@
 require('babel-core/register');
 
 var http = require('http');
-var debug = require('debug');
 var chalk = require('chalk'); // 控制台颜色插件
 
 var app = require('../app.js');
@@ -13,8 +12,6 @@ var config = require('../config');
 // 启动服务
 var server = http.createServer(app);
 
-
 app.listen(config.port, function() {
-    debug('listening');
     console.log(chalk.cyan(`\n Your application is running here: http://localhost:${config.port}\n`));
 });

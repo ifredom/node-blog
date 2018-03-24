@@ -6,13 +6,14 @@ var fs = require('fs');
 var express = require('express');
 var favicon = require('serve-favicon'); // 设置小图标
 var cookieParser = require('cookie-parser'); // 解析 cookie
-var bodyParser = require('body-parser'); // 解析http请求体
 var session = require('express-session'); // 记录session中间件
 var connectMongo = require('connect-mongo'); // 访问服务器时，更新session到数据库
+var bodyParser = require('body-parser'); // 解析http请求体
 var winston = require('winston'); // 记录日志
 var expressWinston = require('express-winston'); // 输出日志，依赖于winston包
 var merge = require('webpack-merge'); // 对象合并工具
 var history = require('connect-history-api-fallback'); // Html5 history库
+var moment = require('moment');
 var utils = require('./middlewares/utils'); // 导入工具函数
 var config = require('./config'); // 导入配置
 var routes = require('./routes'); // 导入router层控制函数
@@ -39,12 +40,12 @@ app.use(cookieParser()); // 加载解析cookei的中间件。
 // session 中间件
 app.use(
     session({
-        user: config.session.key, // 设置 cookie 中保存 session id 的字段名称
+        uid: config.session.name, // 设置 cookie 中保存 session id 的字段名称
         secret: config.session.secret, // 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
         resave: true, // 强制更新 session
         saveUninitialized: false, // 设置为 false，强制创建一个 session，即使用户未登录
         cookie: {
-            maxAge: config.session.maxAge // 过期时间，过期后 cookie 中的 session id 自动删除
+            maxAge: config.session.cookie.maxAge // 过期时间，过期后 cookie 中的 session id 自动删除
         },
         store: new MongoStore({
             // 将 session 存储到 mongodb
@@ -62,8 +63,11 @@ app.use(bodyParser.urlencoded({ extended: true })); // 加载解析urlencoded请
 app.use(express.static(path.join(__dirname, 'public'))); // 设置静态文件目录
 
 // 设置模板全局常量
-app.locals.moment = require('moment');
-app.locals.blog = merge({}, config.blog);
+
+app.locals = {
+    moment: moment,
+    blog: config.blog
+};
 
 // 路由
 routes(app);
@@ -100,14 +104,23 @@ app.use(
 );
 
 // 404 page
-app.use(function(req, res) {
-    const err = new Error('404 ! Page Not Found.');
-    res.status(404).render('frontpage/404', {
-        message: err.message,
-        error: err
+app.use(function(req, res, next) {
+    var err = new Error('404.Not Found');
+    res.status(404).render('common/404', {
+        statusCode: 404,
+        message: err.message
+    });
+});
+
+// err page
+app.use(function(err, req, res, next) {
+    res.status(err.status).render('common/error', {
+        statusCode: err.status,
+        message: err.message
     });
 });
 
 app.use(history());
 
+// 导出 app
 module.exports = app;

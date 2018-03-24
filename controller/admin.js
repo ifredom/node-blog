@@ -5,14 +5,14 @@ var articleModel = require('../models/article/article')
 /* GET /admin. */
 router.get('/', (req, res, next) => {
   articleModel.find().limit(6).exec().then(function (article) {
-    res.render('adminpage/page/home/home', {
+    res.render('backend/page/home/home', {
       article: article
     });
   })
 })
 /* GET /admin/article/add. */
 router.get('/article/add', (req, res, next) => {
-  res.render('adminpage/page/addarticle/index', {
+  res.render('backend/page/addarticle/index', {
     title: '文章'
   })
   res.end()
@@ -24,7 +24,7 @@ router.post('/', (req, res, next) => {
   var offset = parseInt(req.body.offset, 10)
 
   articleModel.find().skip(offset).limit(limit).exec().then(function (article) {
-    res.render('adminpage/page/home/home', {
+    res.render('backend/page/home/home', {
       article: article
     })
   })

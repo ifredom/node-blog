@@ -6,7 +6,7 @@ var router = express.Router();
 var adminModel = require('../models/admin/admin.js');
 /* GET /login. */
 router.get('/', (req, res, next) => {
-    res.render('frontpage/login', {
+    res.render('frontend/login', {
         title: 'Friend'
     });
     res.end();
@@ -17,6 +17,7 @@ router.post('/', function(req, res, next) {
     var name = req.body.name;
     var password = req.body.password;
     password = sha1(password);
+
     adminModel
         .findOne({
             name: name,
@@ -31,10 +32,19 @@ router.post('/', function(req, res, next) {
 
             // 用户信息写入 session
             delete user.password;
-            req.session.user = user;
+            req.session.uid = user;
 
             // 跳转到主页
             res.redirect('/blog');
+        })
+        .catch(error => {
+            // console.log(error)
+            res.send({
+                status: 0,
+                type: 'FORM_DATA_ERROR',
+                message: '表单信息错误'
+            });
+            return;
         });
 });
 module.exports = router;

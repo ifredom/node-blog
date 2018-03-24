@@ -5,14 +5,14 @@ var router = express.Router()
 
 /* GET /blog. */
 router.get('/', (req, res, next) => {
-  res.render('frontpage/page/blog/blog', {
+  res.render('frontend/page/blog/blog', {
     title: 'ifredom博客主页'
   })
   res.end()
 })
 /* GET /blog/article. */
 router.get('/article', (req, res, next) => {
-  res.render('frontpage/page/article/index', {
+  res.render('frontend/page/article/index', {
     title: '文章'
   })
   res.end()
