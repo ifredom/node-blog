@@ -61,7 +61,8 @@ app.set('view engine', 'pug'); // 视图引擎设置为pug
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico'))); //  设置小图标
 app.use(bodyParser.json()); // 加载解析json的中间件。必须在route加载前调用
 app.use(bodyParser.urlencoded({ extended: true })); // 加载解析urlencoded请求体的中间件, application/x-www-form-urlencoded
-app.use(serveStatic(path.join(__dirname, 'public'))); // 设置静态文件目录
+app.use(serveStatic(path.join(__dirname, 'public'))); // 设置静态文件目录方式一
+// app.use(express.static(path.join(__dirname, 'public')));// 设置静态文件目录方式二
 
 // 设置模板全局常量
 
