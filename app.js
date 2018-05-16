@@ -2,6 +2,7 @@ require('./mongodb/mongodb.js'); // 连接Mongdb数据库服务.若本地未安�
 // require('./mysql/mysql.js'); // 连接mysql数据库服务.只能选择一个
 
 var path = require('path');
+var http = require('http');
 var fs = require('fs');
 var express = require('express');
 var favicon = require('serve-favicon'); // 设置小图标
@@ -60,7 +61,9 @@ app.set('views', path.join(__dirname, 'views')); // 设置
 app.set('view engine', 'pug'); // 视图引擎设置为pug
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico'))); //  设置小图标
 app.use(bodyParser.json()); // 加载解析json的中间件。必须在route加载前调用
-app.use(bodyParser.urlencoded({ extended: true })); // 加载解析urlencoded请求体的中间件, application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({
+  extended: true
+})); // 加载解析urlencoded请求体的中间件, application/x-www-form-urlencoded
 app.use(serveStatic(path.join(__dirname, 'public'))); // 设置静态文件目录方式一
 // app.use(express.static(path.join(__dirname, 'public')));// 设置静态文件目录方式二
 
@@ -106,7 +109,7 @@ app.use(
 );
 
 // 404 page
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('404.Not Found');
   res.status(404).render('common/404', {
     statusCode: 404,
@@ -115,7 +118,7 @@ app.use(function(req, res, next) {
 });
 
 // err page
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status).render('common/error', {
     statusCode: err.status,
     message: err.message
@@ -125,4 +128,13 @@ app.use(function(err, req, res, next) {
 app.use(history());
 
 // 导出 app
-module.exports = app;
+if (module.parent) {
+  module.exports = app;
+} else {
+  // 启动服务
+  var server = http.createServer(app);
+  app.listen(config.port, function () {
+    console.log(`\n Your application is running here: http://localhost:${config.port}\n`);
+  });
+
+}
