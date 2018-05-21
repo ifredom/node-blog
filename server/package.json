@@ -10,8 +10,7 @@
   ],
   "description": "a blog maked with node",
   "scripts": {
-    "dev:client": "webpack-dev-server --inline --progress --config client/build/webpack.dev.conf.js",
-    "dev:server": "nodemon --inspect ./server/bin/www",
+    "dev": "nodemon --inspect ./bin/www",
     "start": "node --harmony ./bin/www ",
     "test": "node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
   },
