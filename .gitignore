@@ -1,9 +1,9 @@
 .DS_Store
-npm-debug.log
-node_modules
+
 server/node_modules
+server/dist
+server/npm-debug.log
+
 client/node_modules
-logs
-dist/
-npm-debug.log
-logs/
+client/dist
+client/npm-debug.log
