@@ -3,7 +3,6 @@
 server/node_modules
 server/dist
 server/npm-debug.log
-
 client/node_modules
 client/dist
 client/npm-debug.log
