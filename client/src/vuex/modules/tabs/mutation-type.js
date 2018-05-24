@@ -1,0 +1,4 @@
+export const ADDTABS = 'ADDTABS'
+export const DELETETABS = 'DELETETABS'
+export const SETACTIVETAB = 'SETACTIVETAB'
+export const REMOVEALLTABS = 'REMOVEALLTABS'
