@@ -9,6 +9,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const portfinder = require('portfinder');
+const AssetsPlugin = require('assets-webpack-plugin'); // 生成文件名，配合HtmlWebpackPlugin增加打包后dll的缓存
+
 const {
   GuessPlugin
 } = require('guess-webpack');
@@ -83,6 +85,21 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     //     endDate: new Date('mm/dd/yyyyy')
     //   }
     // }),
+    // 这里将生成的 vendor.dll.js 文件 copy 到 你需要的目录
+    new CopyWebpackPlugin([{
+      from: 'dist/vendor.dll.js',
+      to: config.build.assetsSubDirectory,
+      flatten: true,
+      ignore: ['.*']
+    }]),
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      manifest: require('../dist/vendor-manifest.json'), // 指向生成的manifest.json
+    }),
+    new AssetsPlugin({
+      filepath: require.resolve("../dist/vendor.dll.js"),
+      hash: true
+    }),
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
     }),
@@ -96,6 +113,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
+      libJsName: config.dll.buildDir.js,
+      libCssName: config.dll.buildDir.css,
       inject: true
     }),
     new CopyWebpackPlugin([{
