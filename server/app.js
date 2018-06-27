@@ -1,5 +1,6 @@
-require('./db/mongodb/mongodb.js'); // 连接Mongdb数据库服务.若本地未安装mongDB以及未开启mongDB服务，注释掉此行即可。
-// require('./db/mysql/mysql.js'); // 连接mysql数据库服务.只能选择一个
+// require('./db/mongodb/mongodb.js'); // 连接Mongdb数据库服务.若本地未安装mongDB以及未开启mongDB服务，注释掉此行即可。
+require('./db/mysql/mysql.js'); // 连接mysql数据库服务.只能选择一个
+
 
 var path = require('path');
 var http = require('http');

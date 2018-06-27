@@ -9,6 +9,7 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build": "node build/build.js",
     "start": "npm run dev",
+    "dll": "rimraf dist && webpack --progress --colors --config build/webpack.dll.conf.js && npm run dev",
     "skeleton": "node build/webpack.skeleton.conf.js",
     "storybook": "start-storybook -p 6007 -c .storybook",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
@@ -17,6 +18,7 @@
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs"
   },
   "dependencies": {
+    "animejs": "^2.2.0",
     "axios": "^0.17.1",
     "es6-promise": "^4.2.4",
     "fastclick": "^1.0.6",
