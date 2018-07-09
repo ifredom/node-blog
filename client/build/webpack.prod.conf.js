@@ -28,6 +28,10 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   plugins: [
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      manifest: require('../dist/vendor-manifest.json'), // 指向生成的manifest.json
+    }),
     new webpack.DefinePlugin({
       'process.env': env
     }),

@@ -39,12 +39,12 @@ module.exports = {
     // => 将 build 的路径前缀修改为 ' ./ '（原本为 ' / '），
     // '/' 在服务器环境中使用
     // './' 在本地开发时使用，而build之后的文件是为了app使用，如同本地使用
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
     productionSourceMap: true,
     devtool: '#source-map', // 或者使用#eval-source-map
     productionGzip: false, // 打包为app时不能开启
     productionGzipExtensions: ['js', 'css'],
-    bundleAnalyzerReport: process.env.npm_config_report
+    bundleAnalyzerReport: true
   },
   dll: dllEnv
 };
