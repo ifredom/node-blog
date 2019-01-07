@@ -8,17 +8,17 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/apiHost': {
-        // 匹配所有以/api开始的路径
-        target: 'http://127.0.0.1:3003',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/apiHost': ''
-        }
-      }
+      // '/apiHost': {
+      //   // 匹配所有以/api开始的路径
+      //   target: 'http://127.0.0.1:3003',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/apiHost': ''
+      //   }
+      // }
     },
     host: 'localhost',
-    port: 8869,
+    port: 3102,
     autoOpenBrowser: true,
     errorOverlay: true, // 是否开启报错提示
     notifyOnErrors: true, // 是否开启错误消息通知，类似qq通知

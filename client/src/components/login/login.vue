@@ -55,8 +55,11 @@ export default {
         if (res.statusCode == 200) {
           this.set_login_state(true);
           // 存储token在storage中
+          var opUser = res.data
           localStorage.setItem('token', res.data.token);
-          this.$router.push({ path: '/home' });
+          window.sessionStorage.setItem('user', JSON.stringify(opUser));
+          this.$store.commit('setOpUser', opUser);
+          this.$router.push({ path: '/index' });
         } else {
           alert('登录失败');
         }
@@ -75,7 +78,6 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .page-login {
   // background: url('../../assets/image/login/bg.jpg') top left;
-
   .container {
     width: 200px;
     height: 200px;

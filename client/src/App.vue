@@ -29,8 +29,7 @@ export default {
     // 做完回退动画后，要设置成前进动画，否则下次打开页面动画将还是回退
     this.$router.isBack = false;
     next();
-  },
-  components: {}
+  }
 };
 </script>
 
@@ -42,7 +41,6 @@ export default {
     height: 100%;
     max-width: 100%;
     z-index: 1;
-    // background: url('./assets/image/bg.jpg') left top;
 }
 
 .child-view.black-bg {

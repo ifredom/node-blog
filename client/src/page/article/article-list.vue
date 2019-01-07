@@ -1,35 +1,46 @@
 <template>
-  <section class="main-fix">
-    <div class="container wrapper">
-        <article-detail v-for="(item,index) in articleList" :key="index"></article-detail>
+  <section class="article-list">
+    <div class="wrapper">
+      <ta-recommendside></ta-recommendside>
+      <!-- <article-list-tech v-for="(item,index) in articleList" :key="index"></article-list-tech> -->
+      <article-list-life v-for="(item,index) in articleList" :key="index"></article-list-life>
     </div>
   </section>
 </template>
 <script type="text/ecmascript-6">
-import articleDetail from "@/page/article/article-detail";
-
+import articleListTech from '@/page/article/group/article-list-tech';
+import articleListLife from '@/page/article/group/article-list-life';
+import taRecommendside from '@/components/recommendside';
 export default {
   data() {
     return {
-      articleList:[1,2,3]
+      articleList: [1, 2, 3,4]
     };
   },
-  components:{
-    articleDetail
+  components: {
+    taRecommendside,
+    articleListTech,
+    articleListLife
   }
 };
 </script>
 <style scoped lang="stylus">
 @import '../../assets/style/variable.styl';
 
-.main-fix {
-  float: right;
+.article-list {
   width: 100%;
-  .container {
-    &.wrapper {
-      padding: 3rem;
-    }
-  }
 }
 
+.wrapper {
+  position: relative;
+  padding: 0 2.2rem 0 0;
+  margin-right: $recommendbar-width;
+}
+
+@media (max-width: $media-level-lg) {
+  .wrapper {
+    margin-right: 0;
+    padding: 0;
+  }
+}
 </style>

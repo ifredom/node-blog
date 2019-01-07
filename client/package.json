@@ -13,8 +13,6 @@
     "skeleton": "node build/webpack.skeleton.conf.js",
     "storybook": "start-storybook -p 6007 -c .storybook",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
-    "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs"
   },
   "dependencies": {
@@ -30,6 +28,7 @@
     "vue": "^2.5.16",
     "vue-ga": "^1.0.0",
     "vue-lazyload": "^1.2.2",
+    "vue-material": "^1.0.0-beta-10.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
@@ -52,7 +51,6 @@
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chalk": "^2.0.1",
-    "chromedriver": "^2.27.2",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.1",
     "cross-spawn": "^5.0.1",
@@ -117,7 +115,7 @@
     "url-loader": "^1.0.1",
     "vue-loader": "^13.6.1",
     "vue-style-loader": "^3.0.1",
-    "vue-template-compiler": "^2.5.2",
+    "vue-template-compiler": "^2.5.17",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "2.11.2",

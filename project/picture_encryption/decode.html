@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="cn-ZH">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+  // Uncaught DOMException: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The canvas has been tainted
+  by cross-origin data.
+  <script>
+    createImg()
+
+    function createImg() {
+      var img = new Image();
+      img.onload = function () {
+        renderImg(img);
+      };
+      img.crossOrigin = 'anonymous';
+      img.src = 'am.png';
+    }
+
+    function renderImg(img) {
+      // 创建图片
+      var imgSize = img.width;
+      var canvas = document.createElement('canvas');
+      canvas.width = canvas.height = imgSize;
+      var ctx = canvas.getContext('2d');
+      // 将图片装入canvas,以便处理数据
+      ctx.drawImage(img, 0, 0);
+
+      // 将像素转换为字节数组
+      // 只需读取第一个像素值的数据并抓取第一个字节以获取数据大小
+      var headerData = ctx.getImageData(0, 0, 1, 1)
+
+      var dataSize = headerData.data[0]
+      // 创建一个足以容纳RGB数据的uint8array,其中RGBA像素的alpha值始终设置为255
+      var imageData = ctx.getImageData(0, 1, dataSize, dataSize)
+      var paddedData = imageData.data
+      var uint8array = new Uint8Array(paddedData.length / 4 * 3)
+
+      // 每4个字节，提取其中那个3个字节的值复制到新数组，
+      var idx = 0
+      for (let index = 0; index < paddedData.length - 1; index += 4) {
+        var subArray = paddedData.slice(index, index + 3)
+        uint8array.set(subArray, idx)
+        idx += 3
+      }
+
+      // 数组uint8array，其中包含我们所有的数据以及最后的大量零填充数据,零填充数据也需要过滤掉。
+      // 因此我们需要找到数组中这个零填充结束的位置，从结尾开始遍历数组，直到我们达到第一个非零字节
+      var includeBytes = uint8array.length
+      for (let j = uint8array.length - 1; j > 0; j--) {
+        if (uint8array[j] == 0) {
+          includeBytes--
+        } else {
+          break
+        }
+      }
+
+      // 解码字节数组
+      var data = uint8array.slice(0, includeBytes);
+      var resultData = (new TextDecoder('utf-8')).decode(data);
+      console.log(resultData);
+
+
+
+    }
+  </script>
+</body>
+
+</html>

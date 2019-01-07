@@ -65,6 +65,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     //     size: os.cpus().length
     //   })
     // }),
+    // 谷歌统计上报
     // new GuessPlugin({
     //   GA: 'UA-119554860-1',
     //   mode: 'gatsby',
@@ -85,17 +86,11 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     //     endDate: new Date('mm/dd/yyyyy')
     //   }
     // }),
-    // 这里将生成的 vendor.dll.js 文件 copy 到 你需要的目录
-    new CopyWebpackPlugin([{
-      from: 'dist/vendor.dll.js',
-      to: config.build.assetsSubDirectory,
-      flatten: true,
-      ignore: ['.*']
-    }]),
-    new webpack.DllReferencePlugin({
-      context: __dirname,
-      manifest: require('../dist/vendor-manifest.json'), // 指向生成的manifest.json
-    }),
+    // 引入vendor.dll.js 文件
+    // new webpack.DllReferencePlugin({
+    //   context: __dirname,
+    //   manifest: require('../dist/vendor-manifest.json'), // 指向生成的manifest.json
+    // }),
     new AssetsPlugin({
       filepath: require.resolve("../dist/vendor.dll.js"),
       hash: true
@@ -128,7 +123,6 @@ module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port;
   portfinder.getPort((err, port) => {
     if (err) {
-      consolelog('zhel');
       reject(err);
     } else {
       process.env.PORT = port;

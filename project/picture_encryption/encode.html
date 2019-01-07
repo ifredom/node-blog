@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>test image save</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+  <img id="testImg" src="" alt="">
+  <div id="container"></div>
+  <script>
+    var data = {
+      author: 'ifredom',
+      data: ["20189-01-04", "15:27:35"]
+    }
+    // 将对象转换为字节数组
+    var strData = JSON.stringify(data)
+    var encoder = new TextEncoder('utf-8')
+    var unit8array = encoder.encode(strData)
+    var charset = encoder.encoding
+    var dataSize = Math.ceil(Math.sqrt(unit8array.length / 3))
+
+    // 将字节数组转换为图像数据
+    // 画布使用的ImageData对象,需要的是Uint8ClampedArray，目前已有一个 uint8array ，所以需要做一下转化
+    // 由于我需要无损格式来存储我的图像数据，因此我选择PNG作为输出格式。这也意味着不是将数据存储为RGB，而是将其存储为RGBA。
+    // 每个像素有一个额外的Alpha通道，因此需要额外的字节。但是经过一些实验后，当alpha通道设置为零时，我遇到了一个与RGB损坏有关的问题，直接设置为255完全不透明
+    var paddedData = new Uint8ClampedArray(dataSize * dataSize * 4);
+    var idx = 0;
+    for (var i = 0; i < unit8array.length; i += 3) {
+      var subArray = unit8array.subarray(i, i + 3);
+      paddedData.set(subArray, idx);
+      paddedData.set([255], idx + 3);
+      idx += 4;
+    }
+    console.log(paddedData);
+
+    // 得到想要的数据
+    var imageData = new ImageData(paddedData, dataSize, dataSize);
+    // 绘制图形
+    var imgSize = 256;
+    var canvas = document.createElement('canvas');
+    canvas.height = canvas.width = imgSize
+    var ctx = canvas.getContext('2d')
+    ctx.fillStyle = '#AA0000'
+    ctx.fillRect(0, 0, imgSize, imgSize)
+    ctx.fillStyle = 'rgb(' + dataSize + ',0,0)';
+    ctx.fillRect(0, 0, 1, 1);
+    // 将数据填充到图形中
+    ctx.putImageData(imageData, 0, 1);
+
+    // 绘制UI
+    var container = document.getElementById('container')
+    container.innerHTML = `<a id="hiddenLink" href="${canvas.toDataURL()}" download="${canvas.toDataURL()}">下载加密后的文件</a>`
+    var img = document.getElementById('testImg').setAttribute('src',canvas.toDataURL())
+
+    // ==============================================
+  </script>
+</body>
+
+</html>

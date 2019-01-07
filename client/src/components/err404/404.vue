@@ -22,8 +22,9 @@
 </template>
 
 <script>
-// var parallax = require('@/assets/util/scriptalizer/scriptalizer.js');
+// var parallax = require('../../assets/util/scriptalizer/scriptalizer.js');
 export default {
+  name:'error404',
   data() {
     return {};
   },
@@ -58,9 +59,9 @@ a:active {
 a {
   outline: none;
   color: #2a3038;
-  -webkit-transition-property: color, text-shadow;
-  -webkit-transition-duration: 600ms;
-  -webkit-transition-timing-function: ease-in-out;
+  transition-property: color, text-shadow;
+  transition-duration: 600ms;
+  transition-timing-function: ease-in-out;
   font: bold 12px 'Lucida Grande', Lucida, Verdana, sans-serif;
 }
 

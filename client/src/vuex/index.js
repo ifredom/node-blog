@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import tabs from './modules/tabs'
+import sidebar from './modules/sidebar'
 
 Vue.use(Vuex)
 
@@ -10,7 +11,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   // 模块
   modules: {
-    tabs
+    tabs,
+    sidebar
   }
 })
 export default store

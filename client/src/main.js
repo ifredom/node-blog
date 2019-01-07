@@ -10,16 +10,12 @@ import router from '@/router';
 // 工具
 import FastClick from 'fastclick';
 import VueLazyload from 'vue-lazyload';
-import NProgress from 'nprogress';
+import '@/assets/style/iconfont/iconfont.css';
 import '@/components/installAllCompoent.js';
+// import 'vue-material/dist/vue-material.min.css';
 
-// 增强vue原go方法,注入meta属性isBack
-VueRouter.prototype.go = function () {
-  this.isBack = true;
-  window.history.go(-1);
-};
+
 Vue.use(Vuex);
-Vue.use(VueRouter);
 Vue.use(VueLazyload);
 
 Vue.config.productionTip = true;
