@@ -9,14 +9,11 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const portfinder = require('portfinder');
-const AssetsPlugin = require('assets-webpack-plugin'); // 生成文件名，配合HtmlWebpackPlugin增加打包后dll的缓存
 
-const {
-  GuessPlugin
-} = require('guess-webpack');
 var os = require('os');
 var HappyPack = require('happypack');
 
+const local_server_mock = require('../local_server_mock/router');
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT && Number(process.env.PORT);
@@ -28,7 +25,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       usePostCSS: true
     })
   },
+  // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
+  // these devServer options should be customized in /config/index.js
   devServer: {
     clientLogLevel: 'warning',
     historyApiFallback: {
@@ -49,52 +48,30 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     } : false,
     publicPath: config.dev.assetsPublicPath,
     proxy: config.dev.proxyTable,
-    quiet: true,
+    quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll
     },
     before(app) {
-
+      // 使用webpack-dev-server作为服务器提供数据
+      // local_server_mock(app);
     }
   },
   plugins: [
     // new HappyPack({
     //   id: 'happybabel',
-    //   loaders: ['babel-loader?cacheDirectory=true'],
+    //   loaders: ['babel-loader'],
+    //   verbose:false,
     //   threadPool: HappyPack.ThreadPool({
-    //     size: os.cpus().length
+    //     size: 4   // 经过试验设置为4核是最好的，而不是cpu最大个数 os.cpus().length
     //   })
     // }),
-    // 谷歌统计上报
-    // new GuessPlugin({
-    //   GA: 'UA-119554860-1',
-    //   mode: 'gatsby',
-    //   debug: true,
-    //   runtime: {
-    //     delegate: true,
-    //     basePath: '/',
-    //     prefetchConfig: {
-    //       '4g': 0.15,
-    //       '3g': 0.3,
-    //       '2g': 0.45,
-    //       'slow-2g': 0.6
-    //     },
-    //   },
-    //   routeProvider: false, // In order to skip the metadata collection and use the raw GA report set
-    //   period: {
-    //     startDate: new Date('mm/dd/yyyyy'),
-    //     endDate: new Date('mm/dd/yyyyy')
-    //   }
-    // }),
-    // 引入vendor.dll.js 文件
     // new webpack.DllReferencePlugin({
-    //   context: __dirname,
-    //   manifest: require('../dist/vendor-manifest.json'), // 指向生成的manifest.json
+    //   context: config.dll.rootDir,
+    //   manifest: path.join(config.dll.buildDir, 'vendor-manifest.json'), // 指向生成的manifest.json
+    //   // manifest: require('../dist/vendor-manifest.json'), // 指向生成的manifest.json
+    //   name: "[name]", // 当前Dll的所有内容都会存放在这个参数指定变量名的一个全局变量下，注意与DllPlugin的name参数保持一致
     // }),
-    new AssetsPlugin({
-      filepath: require.resolve("../dist/vendor.dll.js"),
-      hash: true
-    }),
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
     }),
@@ -103,13 +80,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       $: 'jquery'
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
+    new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      libJsName: config.dll.buildDir.js,
-      libCssName: config.dll.buildDir.css,
+      // dllJsName: bundleConfig.vendor.js,
+      // libCssName:bundleConfig.vendor.css,
       inject: true
     }),
     new CopyWebpackPlugin([{
@@ -119,15 +96,20 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }])
   ]
 });
+
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port;
   portfinder.getPort((err, port) => {
     if (err) {
+      consolelog('zhel');
       reject(err);
     } else {
+      // publish the new Port, necessary for e2e tests
       process.env.PORT = port;
+      // add port to devServer config
       devWebpackConfig.devServer.port = port;
 
+      // Add FriendlyErrorsPlugin
       devWebpackConfig.plugins.push(
         new FriendlyErrorsPlugin({
           compilationSuccessInfo: {
@@ -136,6 +118,7 @@ module.exports = new Promise((resolve, reject) => {
           onErrors: config.dev.notifyOnErrors ? utils.createNotifierCallback() : undefined
         })
       );
+
       resolve(devWebpackConfig);
     }
   });

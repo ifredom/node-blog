@@ -1,51 +1,63 @@
 /* only page components */
 import App from '@/App';
 
-import Basics from './basics'
+const page404 = r => require.ensure([], () => r(require('@/page/404')), '404');
+const Login = r => require.ensure([], () => r(require('@/page/login')), 'login');
+const Home = r => require.ensure([], () => r(require('@/page/home/home')), 'home');
+const Homelist = r => require.ensure([], () => r(require('@/page/home/children/list')), 'homelist');
+const Homedetail = r => require.ensure([], () => r(require('@/page/home/children/detail')), 'homedetail');
+const SearchDetail = r => require.ensure([], () => r(require('@/components/searchdetail/searchdetail')), 'searchdetail');
+const Find = r => require.ensure([], () => r(require('@/page/find/find')), 'find');
+const Sweet = r => require.ensure([], () => r(require('@/page/sweet/sweet')), 'sweet');
+const Exam = r => require.ensure([], () => r(require('@/page/exam/exam')), 'exam');
+const Configure = r => require.ensure([], () => r(require('@/page/configure/configure')), 'configure');
 
-const routes = [{
-    name: 'default',
-    path: '',
-    redirect: '/index'
-  },
+const routes = [
+  { path: '*', component: page404 },
   {
-    name: '预览',
-    path: '/preview',
-    component: r => require.ensure([], () => r(require('@/components/preview/preview')), 'preview')
-  },
-  {
-    name: '登录',
-    path: '/login',
-    component: r => require.ensure([], () => r(require('@/components/login/login')), 'login')
-  },
-  {
-    name: '首页',
-    path: '/index',
-    redirect: '/index/home',
-    component: r => require.ensure([], () => r(require('@/page/index')), 'index'),
-    children: [{
-        name: '404',
-        path: '404',
-        component: r => require.ensure([], () => r(require('@/components/err404/404')), '404')
+    path: '/',
+    component: App,
+    children: [
+      {
+        path: '/',
+        redirect: '/login' // 默认路由，直接重定向到地址 /login
       },
       {
-        name: '500',
-        path: '500',
-        component: r => require.ensure([], () => r(require('@/components/err404/404')), '500')
+        path: '/login',
+        component: Login
       },
       {
-        path: 'home',
-        name: '主页',
-        component: r => require.ensure([], () => r(require('@/page/home/home')), 'home'),
-        meta: {
-          keepAlive: true
-        }
+        path: '/home',
+        component: Home,
+        meta: { keepAlive: true }
       },
-      ...Basics
-    ],
-    meta: {
-      requiresAuth: false
-    }
+      {
+        path: '/homedetail',
+        component: Homedetail
+      },
+      {
+        path: '/search',
+        component: SearchDetail
+      },
+      {
+        path: '/find',
+        component: Find,
+        meta: { keepAlive: true }
+      },
+      {
+        path: '/sweet',
+        component: Sweet,
+        meta: { keepAlive: true }
+      },
+      {
+        path: '/exam',
+        component: Exam
+      },
+      {
+        path: '/configure',
+        component: Configure
+      }
+    ]
   }
 ];
 export default routes

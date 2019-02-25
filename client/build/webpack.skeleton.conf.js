@@ -60,7 +60,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       stats.toString({
         colors: true,
         modules: false,
-        children: false, // 使用 ts-loader时打开，可以让错误信息在构建时显示
+        children: false, // If you are using ts-loader, setting this to true will make TypeScript errors show up during build.
         chunks: false,
         chunkModules: false
       }) + '\n\n'
@@ -80,7 +80,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     renderer.renderToString({}, (err, html) => {
       fs.writeFileSync(path.resolve(__dirname, '../index.html'), html, 'utf-8')
     })
-    console.log(chalk.cyan('  R/W skeleton config  in index.html ...\n'));
+    console.log(chalk.cyan('  R/Wskeleton config  in index.html ...\n'));
     console.log(chalk.cyan('  Build skeleton complete.\n'));
   });
 

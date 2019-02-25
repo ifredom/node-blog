@@ -1,10 +1,8 @@
 require('./db/mongodb/mongodb.js'); // 连接Mongdb数据库服务.若本地未安装mongDB以及未开启mongDB服务，注释掉此行即可。
 // require('./db/mysql/mysql.js'); // 连接mysql数据库服务.只能选择一个
 
-
 var path = require('path');
 var http = require('http');
-var fs = require('fs');
 var express = require('express');
 var favicon = require('serve-favicon'); // 设置小图标
 var cookieParser = require('cookie-parser'); // 解析 cookie
@@ -18,12 +16,13 @@ var serveStatic = require('serve-static');
 var utils = require('./middlewares/utils'); // 导入工具函数
 var config = require('./config'); // 导入配置
 var routes = require('./routes'); // 导入router层控制函数
+var errorHandler = require('./middlewares/').errorHandler;
+
 var app = express();
 
 app.all('*', (req, res, next) => {
   // 设置跨域
-  res.header('Access-Control-Allow-Origin', '*');
-  // res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
   res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
   // res.header('Access-Control-Allow-Credentials', true); //可以带cookies
@@ -85,6 +84,8 @@ app.locals = {
 
 // 路由
 routes(app);
+
+app.use(errorHandler);
 
 // 记录正常请求的日志. env参数是由nodemon.json中进行设置
 if (app.get('env') !== 'development') {

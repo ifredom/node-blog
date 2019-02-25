@@ -4,7 +4,9 @@ module.exports = {
     parser: 'babel-eslint'
   },
   globals: {
-    api: true
+    api: true,
+    $api: true,
+    NODE_ENV: true
   },
   env: {
     browser: true,

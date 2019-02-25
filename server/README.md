@@ -1,19 +1,6 @@
 # Node-Blog
 
-    learning and use node make a self-blog.
-
-## How to use
-
-```bash
-# 安装
-npm install
-npm install -g nodemon
-# 默认连接到 mongDB 数据库，可以选择不连接它（注释叼app.js第一行即可）
-# mongDB需要提前安装好并启动。（连接到 MySql 数据库也已经封装好,修改一行代码即可切换使用数据库）
-
-# 启动
-npm run dev
-```
+learning and use node make a self-blog.
 
 ### 内涵
 

@@ -1,8 +1,13 @@
 .DS_Store
 
+node_modules
+
+# 添加 server 中的忽略文件
 server/node_modules
 server/dist
 server/npm-debug.log
+
+# 添加 client 中的忽略文件
 client/node_modules
 client/dist
 client/npm-debug.log

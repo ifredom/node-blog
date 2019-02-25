@@ -9,7 +9,6 @@
 </template>
 <script>
 export default {
-  name:'loading-pacman',
   data() {
     return {
 

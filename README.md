@@ -4,14 +4,20 @@
 
 ## How to use ?
 
-client内是完整前端项目，server是完整后端项目
+> 前后分离。`client`内是完整前端项目，`server`是完整后端项目
+
 ```bash
+# 安装后端依赖包
+npm install
+
+# 安装前端依赖包
+cd client & npm  install
+
 # 打开终端，启动前端开发环境
 cd client & npm  install
-npm run dev:client
+npm run dev
 
 # 再次打开终端，启动后端环境
-cd server & npm  install
 npm run dev:server
 
 # 部署

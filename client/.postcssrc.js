@@ -1,5 +1,3 @@
-
-// 响应式方案一，引入rem.js
 module.exports = {
     plugins: {
         'postcss-import': {},
@@ -8,7 +6,7 @@ module.exports = {
     }
 };
 
-
+// 响应式方案一，引入rem.js
 // 响应式方案二，使用postcss进行设置
 // module.exports = {
 //     plugins: {

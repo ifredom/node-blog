@@ -8,6 +8,7 @@ const rm = require('rimraf');
 const path = require('path');
 const chalk = require('chalk');
 const webpack = require('webpack');
+var shell = require('shelljs');
 const config = require('../config');
 const webpackConfig = require('./webpack.prod.conf');
 
@@ -35,5 +36,16 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
         }
 
         console.log(chalk.cyan('  Build complete.\n'));
+        var cppath = path.resolve(__dirname, '../widget');
+        var bb = ora(
+            '开始复制，将build生成内容复制一份到 ' + cppath + ' 文件夹中...\n\n'
+        ).start();
+
+        rm(path.join(cppath, 'static'), err => {
+            if (err) throw console.warn(err);
+            shell.cp('-Rf', path.join(config.build.assetsRoot, '/*'), cppath);
+            console.log(chalk.cyan('  复制完成'));
+            bb.stop();
+        });
     });
 });

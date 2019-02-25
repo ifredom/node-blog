@@ -15,6 +15,7 @@
     </header>
 </template>
  <script type="text/javascript">
+import { MessageBox } from 'mint-ui';
 
 export default {
     name: 'ta-header',

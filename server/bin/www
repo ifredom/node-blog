@@ -3,14 +3,12 @@
 // 由于它是实时转码，所以只适合在开发环境使用，并且当前加载文件无法使用。
 require('babel-core/register');
 
-var http = require('http');
 var chalk = require('chalk'); // 控制台颜色插件
 var debug = require('debug');
 var app = require('../app.js');
 var config = require('../config');
 
 // 启动服务
-var server = http.createServer(app);
 
 app.listen(config.port, function() {
     debug('listening');

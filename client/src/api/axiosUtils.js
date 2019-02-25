@@ -1,10 +1,8 @@
 import axios from 'axios';
 import NProgress from 'nprogress';
 import Qs from 'qs';
-import {
-  generateRequestParamsSign,
-  getToken
-} from '../assets/util/common/api/params';
+import { MessageBox } from 'mint-ui';
+import { generateRequestParamsSign, getToken } from '../util/common/api/params';
 
 import Constants from '../constants';
 
@@ -18,9 +16,13 @@ const Axios = axios.create({
   }
 });
 
-function isTestUrl(config) {
+function isTestUrl (config) {
   var isTest = true;
-  if (config.url.indexOf('/douban') > -1) {} else if (config.url.indexOf('/baidu') > -1) {} else if (config.url.indexOf('/zhihu') > -1) {} else if (config.url.indexOf('/zhihuribao') > -1) {} else {
+  if (config.url.indexOf('/douban') > -1) {
+  } else if (config.url.indexOf('/baidu') > -1) {
+  } else if (config.url.indexOf('/zhihu') > -1) {
+  } else if (config.url.indexOf('/zhihuribao') > -1) {
+  } else {
     isTest = false;
   }
 
@@ -59,7 +61,11 @@ axios.interceptors.request.use(
   },
   error => {
     // 请求报错误时做些事
-    alert(error)
+    MessageBox({
+      showClose: true,
+      message: error,
+      type: 'error'
+    });
     return Promise.reject(error);
   }
 );
@@ -70,7 +76,11 @@ axios.interceptors.response.use(
     // 对响应数据返回前做些事
     const errorMsg = '请求失败';
     if (response.data && response.status + '' != 200) {
-      alert(error)
+      MessageBox({
+        showClose: true,
+        message: errorMsg,
+        type: 'error'
+      });
       return Promise.reject(new Error(errorMsg));
     }
     return response;
@@ -112,7 +122,7 @@ export const formatFileParams = data => {
 
 // 防止多次ajax请求
 const requesting = {};
-export default function formMiddlePromise(url, params = {}, method = 'post') {
+export default function formMiddlePromise (url, params = {}, method = 'post') {
   let requestingId = url + method.toUpperCase() + (!!~+[] + {});
   if (requesting[requestingId]) {
     console.warn('请勿重复点击');
@@ -126,10 +136,10 @@ export default function formMiddlePromise(url, params = {}, method = 'post') {
   return new Promise((resolve, reject) => {
     NProgress.start();
     axios({
-        method: method,
-        url: url,
-        data: params
-      })
+      method: method,
+      url: url,
+      data: params
+    })
       .then(
         response => {
           NProgress.done();

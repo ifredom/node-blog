@@ -1,0 +1,15 @@
+{
+  "restartable": "rs",
+  "verbose": false,
+  "ignore": ["server/.git", "server/.svn", "server/.vscode", "server/node_modules", ".vscode", "client"],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js json jade",
+  "execMap": {
+    "": "node",
+    "js": "node --harmony",
+    "py": "python",
+    "rb": "ruby"
+  }
+}
